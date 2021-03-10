@@ -1,0 +1,35 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+tr {
+  border-bottom: 1px solid #282828;
+}
+
+td {
+  border-top: none !important;
+}
+
+td.bullet-loss {
+  color: red;
+}
+
+td.bullet-loss ~ td {
+  display: none;
+}
+
+.header-logo {
+  height: 50px;
+}
+
+.crypto-logo {
+  height: 50px;
+  width: 50px;
+}
+
+

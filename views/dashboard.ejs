@@ -1,0 +1,264 @@
+<%- include('partials/dashboardHeader'); %>
+<% const teamsArr = ['ARI', 'ATL', 'BAL', 'BUF', 'CAR', 'CHI', 'CIN', 'CLE', 'DAL', 'DEN', 'DET', 'GB', 'HOU', 'IND', 'JAX',
+'KC', 'LAC', 'LAR', 'LV', 'MIA', 'MIN', 'NE', 'NO', 'NYG','NYJ', 'PHI', 'PIT', 'SEA', 'SF', 'TB', 'TEN', 'WAS' ] %>
+<a href="/api/users/buyBullet" class="btn btn-warning">Buy Bullet</a>
+<div class="container">
+  <div class="col-md-8 m-auto">
+    <ul class="nav justify-content-center mt-5 mb-5">
+      <li class="nav-item">
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+          <a>Make Your Picks</a>
+        </button>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#rulesModal">Rules</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.nfl.com/schedules/" target="_blank">Schedule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Message Board</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h3 class="text-center mb-3"><%= user.name %>'s Dashboard</h3>
+      <p>There is a total of <%= users.length %> users with a total of <%= totalUserBullets %> bullets</p>
+      <p>The Date is now
+        <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
+        and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
+
+    </div>
+  </div>
+
+
+  <div class="table-responsive mt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Week &nbsp;1</th>
+          <th scope="col">Week &nbsp;2</th>
+          <th scope="col">Week &nbsp;3</th>
+          <th scope="col">Week &nbsp;4</th>
+          <th scope="col">Week &nbsp;5</th>
+          <th scope="col">Week &nbsp;6</th>
+          <th scope="col">Week &nbsp;7</th>
+          <th scope="col">Week &nbsp;8</th>
+          <th scope="col">Week &nbsp;9</th>
+          <th scope="col">Week 10</th>
+          <th scope="col">Week 11</th>
+          <th scope="col">Week 12</th>
+          <th scope="col">Week 13</th>
+          <th scope="col">Week 14</th>
+          <th scope="col">Week 15</th>
+          <th scope="col">Week 16</th>
+          <th scope="col">Week 17</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user){ %>
+          <% for(i=0; i < user.bullets; i++){ %>
+            <tr id="<%= `${user.name}-${i}` %>">
+              <th><%= `${user.name} (${i})` %></th>
+              <% for(let week = 0; week < 17; week++){
+                const bullet = (bullets[`${user.name}-${i}`] || {});
+                const pick = bullet[week];
+                const className = bullet.missingWeek === week
+                  ? 'bullet-loss'
+                  : '';
+              %>
+                <td class="<%= className %>">
+                  <%= pick %>
+                </td>
+              <% } %>
+            </tr>
+          <% }; %>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+<!-- Rules Modal -->
+<div class="modal fade" id="rulesModal" tabindex="-1" role="dialog" aria-labelledby="rulesModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rulesModalLabel">Rules</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ol>
+          <li>This is a Members-Only Pool. Membership costs $10 per entry, per year.</li>
+          <li>Participation in the pool is $100 per entry. All participation funds are distributed - 90% to the winner and 10% to 2nd place.</li>
+          <li>Pick the outright WINNER (no point spreads) for one NFL game each week.</li>
+          <li>You must make a selection each week.</li>
+          <li>A team may only be selected once during the regular season (i.e., if you pick the Giants in week 1, you may not select the Giants again for the remainder of the regular season). Slates are wiped clean for the playoffs. If the pool continues into the playoffs, you can use each team one more time.</li>
+          <li>You continue in the pool until a loss (or tie) is suffered, then you're out. YES, TIES ARE LOSSES!</li>
+        </ol> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Buy Bullets Modal -->
+<div class="modal fade" id="bulletsModal" tabindex="-1" role="dialog" aria-labelledby="bulletsModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bulletsModalLabel">Buy Bullets</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+        class="mt-3 mb-3"
+        method="POST"
+        action="/api/bullets/buyBullets"
+      >
+      <div class="form-group">
+      <label>How many bullets do you want?</label>
+        <select class="custom-select" name="bulletCount">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+     
+      </div>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Make Your Picks Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Make Your Picks</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger" style="size: 12px">***Please notice you must make all your picks for all of your bullets
+          at the same time. If you want to update a certain bullet, please make sure to also replace your picks for your
+          other bullets as they will be changed upon each form submission. <strong style="font-size: 16px;"> Always
+            check the table after updating to make sure. </strong>***</p>
+        <div id="accordion">
+          <% for(let i = 1; i <= 10; i++){ %>
+          <div class="card">
+            <div class="card-header" id="heading-<%= i %>">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-<%= i %>" aria-expanded="true"
+                  aria-controls="collapse-<%= i %>">
+                  Week <%= i %>
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapse-<%= i %>" class="collapse" aria-labelledby="heading-<%= i %>" data-parent="#accordion">
+              <div class="card-body">
+                <form
+                  class="mt-3 mb-3"
+                  method="POST"
+                  action="/api/users/makePicks/<%= i %>"
+                >
+                  <% playingBullets.forEach((bullet) => { %>
+                  <div class="form-group">
+                    <label for="<%= `${user.name}-${bullet}` %>">
+                      Make your pick for bullet <%= `${bullet}` %>
+                    </label>
+                    <select
+                      class="form-control"
+                      name="<%= `${user.name}-${bullet}` %>"
+                      id="<%= `${user.name}-${bullet}` %>">
+                      <% teamsArr.forEach(team => { %>
+                        <option><%= team %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                  <% }); %>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+              </div>
+            </div>
+
+            <% }; %>
+          </div>
+
+          <script>
+            const forms = document.querySelectorAll('#exampleModal form');
+            const user = '<%= user.name %>';
+            let userRows = document.querySelectorAll(`table tr[id*="${user}"]`);
+            userRows = Array.from(userRows).map(row => {
+              return Array.from(row.children).slice(1).map(cell => cell.innerHTML.trim()).filter(cell => cell)
+            })
+
+            console.log('userRows', userRows)
+
+            // Form index is actually the week index
+            forms.forEach((form, formIndex) => {
+
+              form.addEventListener('submit', e => {
+                let valid = true;
+                const errors = [];
+
+                form.querySelectorAll('.form-group').forEach((group, rowIndex) => {
+                  const selection = group.querySelector('select').value;
+                  console.log('selection for', rowIndex, selection)
+                  // ARI -> rowIndex
+                  // Gets the cells of the rest of the weeks (remove this one by comparing the index)
+                  const row = userRows[rowIndex].filter((c, index) => index !== formIndex);
+                  console.log('row', row);
+
+                  if (row.includes(selection)) {
+                    valid = false;
+                    const errorMsg = 'Selection ' + selection + ' from ' + rowIndex + ' found in ' +
+                      row;
+                    errors.push(errorMsg)
+                    // throw error
+                  }
+                });
+
+                if (!valid) {
+                  e.preventDefault();
+                  console.log('errors', errors)
+                  alert(
+                    'You cannot pick the same team more than once in the same bullet. Please check the table for clarification.'
+                    );
+
+                  // Stops function
+                  return;
+                }
+              })
+            });
+          </script>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p>...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div> <!-- container -->
