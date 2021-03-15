@@ -23,6 +23,15 @@ td.bullet-loss ~ td {
   display: none;
 }
 
+.whiteText {
+  color: #fff !important;
+}
+
+.welcomeModal {
+  background: url('../images/football-4.jpg') no-repeat center;
+  background-size: cover;
+}
+
 .header-logo {
   height: 50px;
 }

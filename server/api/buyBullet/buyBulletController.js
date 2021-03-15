@@ -1,3 +1,6 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable default-case */
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable consistent-return */
@@ -5,13 +8,24 @@
 /* eslint-disable comma-dangle */
 const CoinqvestClient = require('coinqvest-merchant-sdk');
 const dotenv = require('dotenv');
+const chalk = require('chalk');
+const User = require('../user/userModel');
+
 require('crypto');
 
 dotenv.config();
 
-function bulletsRepo() {
-  let customerId;
+const updateUserBullets = async (userId, quantity) => {
+  const query = { customerId: userId };
+  const update = { bullets: quantity };
 
+  const userX = await User.findOneAndUpdate(query, update, { new: true });
+
+  // console.log('quantity', quantity);
+  // console.log(chalk.blue('user'), userX);
+};
+
+function bulletsRepo() {
   const client = new CoinqvestClient(
     process.env.PUBLIC,
     process.env.PRIVATE
@@ -49,9 +63,13 @@ function bulletsRepo() {
         currency: 'USD', // specifies the billing currency
         lineItems: [{ // a list of line items included in this charge
           description: 'NFL Last Longer Entry',
-          netAmount: 110,
+          netAmount: 5,
           quantity: req.body.bulletCount
         }],
+      },
+      webhook: 'https://646047d09695.ngrok.io//api/bullets/hook',
+      links: {
+        returnUrl: 'https://646047d09695.ngrok.io//api/dashboard'
       },
       pageSettings: {
         displaySellerInfo: false
@@ -82,7 +100,25 @@ function bulletsRepo() {
       });
   }
 
-  return { testAuth, createCustomer, buyBullet };
+  function hook(req, res, next) {
+    const { payload } = req.body.data.checkout;
+
+    console.log(req.body.eventType);
+    console.log(req.body);
+    console.log(payload);
+
+    switch (req.body.eventType) {
+      case 'CHECKOUT_COMPLETED':
+        const { customerId } = req.body.data.checkout.payload.charge;
+        const { quantity } = payload.charge.lineItems[0];
+
+        updateUserBullets(customerId, quantity);
+        res.status(200);
+        break;
+    }
+  }
+
+  return { testAuth, createCustomer, buyBullet, hook };
 }
 
 module.exports = bulletsRepo();
