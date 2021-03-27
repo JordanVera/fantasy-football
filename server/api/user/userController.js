@@ -142,7 +142,6 @@ exports.makePicks = async (req, res, next) => {
       if (pickIndex !== -1) {
         console.log(chalk.green('true'));
         allPicks[pickIndex] = data;
-      // eslint-disable-next-line brace-style
       }
 
       // Otherwise, push new pick

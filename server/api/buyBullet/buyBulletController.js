@@ -57,6 +57,7 @@ function bulletsRepo() {
   }
 
   function buyBullet(req, res, next) {
+    // this object get passed to Coinqvest API
     const chargeObj = {
       charge: {
         customerId: req.user.customerId,
@@ -69,7 +70,7 @@ function bulletsRepo() {
       },
       webhook: 'https://646047d09695.ngrok.io//api/bullets/hook',
       links: {
-        returnUrl: 'https://646047d09695.ngrok.io//api/dashboard'
+        returnUrl: 'https://646047d09695.ngrok.io/ /api/dashboard'
       },
       pageSettings: {
         displaySellerInfo: false

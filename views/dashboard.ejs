@@ -1,6 +1,10 @@
 <%- include('partials/dashboardHeader'); %>
 <% const teamsArr = ['ARI', 'ATL', 'BAL', 'BUF', 'CAR', 'CHI', 'CIN', 'CLE', 'DAL', 'DEN', 'DET', 'GB', 'HOU', 'IND', 'JAX',
 'KC', 'LAC', 'LAR', 'LV', 'MIA', 'MIN', 'NE', 'NO', 'NYG','NYJ', 'PHI', 'PIT', 'SEA', 'SF', 'TB', 'TEN', 'WAS' ] %>
+
+<% const today = new Date() %>
+<% const test =  new Date('March 23, 2021') %>
+
 <a href="/api/users/buyBullet" class="btn btn-warning">Buy Bullet</a>
 <div class="container">
   <div class="col-md-8 m-auto">
@@ -61,6 +65,7 @@
         </tr>
       </thead>
       <tbody>
+      <%# this code creates a row for ever users bullet instance  %>
         <% users.forEach(function(user){ %>
           <% for(i=0; i < user.bullets; i++){ %>
             <tr id="<%= `${user.name}-${i}` %>">
@@ -126,16 +131,9 @@
       <div class="form-group">
       <label>How many bullets do you want?</label>
         <select class="custom-select" name="bulletCount">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+          <% for(let i = 1; i <= 10; i++){ %>
+            <option value="<%= i %>"><%= i %></option>
+          <% } %>
         </select>
      
       </div>
@@ -163,7 +161,9 @@
           other bullets as they will be changed upon each form submission. <strong style="font-size: 16px;"> Always
             check the table after updating to make sure. </strong>***</p>
         <div id="accordion">
-          <% for(let i = 1; i <= 10; i++){ %>
+          <!--% for(let i = 1; i <= 17; i++){ %>-->
+          <% weeks.forEach((i, index) => { %>
+
           <div class="card">
             <div class="card-header" id="heading-<%= i %>">
               <h5 class="mb-0">
@@ -201,7 +201,7 @@
               </div>
             </div>
 
-            <% }; %>
+            <% }); %>
           </div>
 
           <script>
@@ -253,9 +253,6 @@
           </script>
 
         </div>
-      </div>
-      <div class="modal-footer">
-        <p>...</p>
       </div>
     </div>
   </div>
