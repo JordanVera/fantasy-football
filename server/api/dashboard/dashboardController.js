@@ -2,10 +2,10 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-shadow */
 const _ = require('lodash');
-const moment = require("moment");
 
 const User = require('../user/userModel');
 const gamesScores = require('../gameScores/getScores.js');
+const { getAvailableWeeks } = require('../dates/dates.js');
 
 exports.dashboard = async (req, res) => {
   const { user } = req;
@@ -15,13 +15,7 @@ exports.dashboard = async (req, res) => {
   const bulletsArr = [];
   const picks = [];
 
-  const now = moment();
-  const nflSeasonStart = moment('2020-01-01'); // SEASON START
-  const passedWeeks = now.diff(nflSeasonStart, 'week'); // 0, 1, ... 60
-  console.log('startingWeek', passedWeeks);
-
-  const weeks = new Array(17).fill(0)
-    .map((_, index) => index + 1).filter(week => week > passedWeeks);
+  const weeks = getAvailableWeeks(true);
 
   console.log('Losers:', losers);
 

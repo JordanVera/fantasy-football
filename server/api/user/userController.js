@@ -11,9 +11,9 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 const chalk = require('chalk');
-
 const User = require('./userModel');
 const bulletRepo = require('../buyBullet/buyBulletController');
+const { getStartingWeek } = require('../dates/dates.js');
 
 exports.getLogin = (req, res, next) => {
   res.render('login');
@@ -129,6 +129,22 @@ exports.buyBullet = (req, res, next) => {
 exports.makePicks = async (req, res, next) => {
   const picks = req.body;
   const { week } = req.params;
+
+  // this code makes it impossible to make picks past an invalid week
+  console.log(week, getStartingWeek(), week < getStartingWeek());
+  if (Number(week) < getStartingWeek()) {
+    return res.sendStatus(403);
+  }
+
+  /*
+    heroku login
+    heroku init
+    git add .
+    git commit
+    git push heroku master
+    heroku run npm run scores
+  */
+
   try {
     // eslint-disable-next-line no-underscore-dangle
     const result = await User.findById(req.user._id);
