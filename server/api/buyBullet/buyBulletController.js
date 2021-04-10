@@ -64,13 +64,13 @@ function bulletsRepo() {
         currency: 'USD', // specifies the billing currency
         lineItems: [{ // a list of line items included in this charge
           description: 'NFL Last Longer Entry',
-          netAmount: 5,
+          netAmount: process.env.BUYIN,
           quantity: req.body.bulletCount
         }],
       },
-      webhook: 'https://646047d09695.ngrok.io//api/bullets/hook',
+      webhook: `${process.env.WEBHOOK}/api/bullets/hook`,
       links: {
-        returnUrl: 'https://646047d09695.ngrok.io/ /api/dashboard'
+        returnUrl: `${process.env.WEBHOOK}/api/dashboard`
       },
       pageSettings: {
         displaySellerInfo: false
@@ -110,13 +110,20 @@ function bulletsRepo() {
 
     switch (req.body.eventType) {
       case 'CHECKOUT_COMPLETED':
-        const { customerId } = req.body.data.checkout.payload.charge;
+        const { customerId } = payload.charge;
         const { quantity } = payload.charge.lineItems[0];
 
         updateUserBullets(customerId, quantity);
-        res.status(200);
+        break;
+      case 'UNDERPAID_ACCEPTED':
+        const { customerIdX } = payload.charge;
+        const { quantityX } = payload.charge.lineItems[0];
+
+        updateUserBullets(customerIdX, quantityX);
         break;
     }
+
+    return res.status(200);
   }
 
   return { testAuth, createCustomer, buyBullet, hook };

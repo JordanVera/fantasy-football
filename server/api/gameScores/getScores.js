@@ -6,7 +6,6 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const { MongoClient } = require('mongodb');
 const chalk = require('chalk');
-const util = require('util');
 
 dotenv.config();
 
@@ -83,23 +82,23 @@ function getSchedule() {
 
           responseArr[i].data.forEach((element) => {
             if (element.AwayScore > element.HomeScore) {
-              console.log(chalk.red('Away team won'));
+              // console.log(chalk.red('Away team won'));
               winnerWeek.push(element.AwayTeam);
               loserWeek.push(element.HomeTeam);
             } else if (element.AwayScore === element.HomeScore) {
-              console.log(chalk.blue('Game was a tie, both teams lost'));
+              // console.log(chalk.blue('Game was a tie, both teams lost'));
               loserWeek.push(element.HomeTeam);
               loserWeek.push(element.AwayTeam);
             } else {
-              console.log(chalk.green('Home Team won'));
+              // console.log(chalk.green('Home Team won'));
               winnerWeek.push(element.HomeTeam);
               loserWeek.push(element.AwayTeam);
             }
           });
         }
 
-        console.log(util.inspect(winners, { showHidden: false, depth: null }));
-        console.log(util.inspect(losers, { showHidden: false, depth: null }));
+        // console.log(util.inspect(winners, { showHidden: false, depth: null }));
+        // console.log(util.inspect(losers, { showHidden: false, depth: null }));
 
         async function seedDbWinners() {
           const client = new MongoClient(process.env.MongoURI);
@@ -117,8 +116,8 @@ function getSchedule() {
           client.close();
         }
 
-        seedDbWinners();
-        seedDbLosers();
+        // seedDbWinners();
+        // seedDbLosers();
 
         resolve({ winners, losers });
       })

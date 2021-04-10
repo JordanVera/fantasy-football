@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable no-console */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-shadow */
@@ -17,7 +18,7 @@ exports.dashboard = async (req, res) => {
 
   const weeks = getAvailableWeeks(true);
 
-  console.log('Losers:', losers);
+  // console.log('Losers:', losers);
 
   users.forEach((user) => {
     picks.push(user.picks);

@@ -1,3 +1,4 @@
+/* eslint-disable brace-style */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
@@ -111,6 +112,7 @@ exports.getLogout = (req, res, next) => {
   res.redirect('/api/users/login');
 };
 
+// This route is specifically for testing.  TESTING ONLY.
 exports.buyBullet = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
@@ -131,20 +133,11 @@ exports.makePicks = async (req, res, next) => {
   const { week } = req.params;
 
   // this code makes it impossible to make picks past an invalid week
-  console.log(week, getStartingWeek(), week < getStartingWeek());
   if (Number(week) < getStartingWeek()) {
     return res.sendStatus(403);
   }
 
-  /*
-    heroku login
-    heroku init
-    git add .
-    git commit
-    git push heroku master
-    heroku run npm run scores
-  */
-
+  console.log(week, getStartingWeek(), week < getStartingWeek());
   try {
     // eslint-disable-next-line no-underscore-dangle
     const result = await User.findById(req.user._id);
