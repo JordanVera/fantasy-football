@@ -32,6 +32,7 @@
     <div class="card card-body">
       <h3 class="text-center mb-3"><%= user.name %>'s Dashboard</h3>
       <p>There is a total of <%= users.length %> users with a total of <%= totalUserBullets %> bullets</p>
+      <p>Which makes the prize pool $<%= totalUserBullets * 110 %></p>
       <p>The Date is now
         <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
         and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
