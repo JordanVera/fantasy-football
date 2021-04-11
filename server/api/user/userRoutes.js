@@ -14,6 +14,9 @@ router.route('/register')
 router.route('/logout')
   .get(controller.getLogout);
 
+router.route('/buyBullet')
+  .get(controller.buyBullet);
+
 router.route('/makePicks/:week')
   .post(controller.makePicks);
 

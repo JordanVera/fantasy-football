@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node --experimental-modules app.js",
+    "dev": "nodemon --experimental-modules app.js",
     "getSchedule": "node --experimental-modules ./server/api/schedule/getSchedule.js",
     "scores": "node --experimental-modules ./server/api/gameScores/getScores.js",
     "buyBullet": "node ./server/api/buyBullet/bs.js",

@@ -2,19 +2,19 @@
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mb-3">
+      <h2 class="text-center mb-3">
         <i class="fas fa-user-plus"></i> Register
-      </h1>
+      </h2>
       <%- include('partials/messages'); %>
       <form action="/api/users/register" method="POST">
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Screen Name</label>
           <input
             type="name"
             id="name"
             name="name"
             class="form-control"
-            placeholder="Enter Name"
+            placeholder="Enter Screen Name"
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
         </div>
