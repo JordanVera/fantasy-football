@@ -113,21 +113,22 @@ exports.getLogout = (req, res, next) => {
 };
 
 // This route is specifically for testing.  TESTING ONLY.
-exports.buyBullet = (req, res, next) => {
-  User.findByIdAndUpdate(
-    req.user._id,
-    { $inc: { bullets: 1 } },
-    { returnNewDocument: true },
-    async (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(await req.user);
-      res.redirect('/api/dashboard');
-    }
-  );
-};
+// exports.buyBullet = (req, res, next) => {
+//   User.findByIdAndUpdate(
+//     req.user._id,
+//     { $inc: { bullets: 1 } },
+//     { returnNewDocument: true },
+//     async (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       }
+//       console.log(await req.user);
+//       res.redirect('/api/dashboard');
+//     }
+//   );
+// };
 
+// eslint-disable-next-line consistent-return
 exports.makePicks = async (req, res, next) => {
   const picks = req.body;
   const { week } = req.params;
@@ -166,7 +167,7 @@ exports.makePicks = async (req, res, next) => {
     result.picks = allPicks;
     console.log('allPicks', allPicks);
     await result.save();
-    return res.redirect('/api/dashboard');
+    res.redirect('/api/dashboard');
   } catch (error) {
     console.log(error);
   }
