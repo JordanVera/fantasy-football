@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable arrow-body-style */
 /* eslint-disable comma-dangle */
 /* eslint-disable no-console */
 /* eslint-disable eqeqeq */
@@ -47,16 +49,29 @@ exports.dashboard = async (req, res) => {
 
     // console.log(bulletNumber, userName);
 
-    const userWeeks = Object.values(bullets[bullet] || {});
+    // const userWeeks = Object.values(bullets[bullet] || {});
+    const userWeeks = [...Array(17)].map((n, index) => {
+      return bullets[bullet] && bullets[bullet][index];
+    });
+
+    console.log('bullets[bullet]', bullets[bullet]);
 
     // There should not be a loser pick inside of userWeeks
     return !userWeeks.some((weekPick, weekIndex) => {
       // weekPick should not be in losers[`week${weekIndex + 1}`];
       const loserWeek = losers[`week${weekIndex + 1}`];
+
+      if (weekIndex == 1 && !weekPick) {
+        console.log('loserWeek', loserWeek);
+        console.log('weekPick', weekPick);
+      }
       const some = loserWeek.includes(weekPick);
 
+      // const loserWeek = losers[`week${weekIndex + 1}`][weekIndex];
+      // const some = loserWeek === weekPick;
+
       if (some) {
-        console.log(`${weekPick} of week ${weekIndex + 1} is inside`, loserWeek);
+        // console.log(`${weekPick} of week ${weekIndex + 1} is inside`, loserWeek);
         bullets[bullet].missingWeek = weekIndex;
       }
 
