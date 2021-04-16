@@ -36,6 +36,7 @@
       <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
       and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
     <p class="text-warning" style="size: 12px">***Please note you must make your pick on Thursday before 5pm CST (6pm EST) for every bullet.  <strong>Even if you are not picking the thursday game.</strong>***</p>
+    <a style="width: 130px;" class="btn m-auto btn-primary glow-on-hover" data-toggle="modal" data-target="#bulletsModal">Buy Bullets</a>
   </div>
 </div>
 
@@ -245,8 +246,7 @@ aria-hidden="true">
 
                 if (row.includes(selection)) {
                   valid = false;
-                  errorMsg = 'Selection ' + selection + ' from ' + rowIndex + ' found in ' +
-                    row;
+                  errorMsg = `Selection ${selection} found in row number ${rowIndex + 1}`
                   errors.push(errorMsg)
                   // throw error
                 }
@@ -258,13 +258,12 @@ aria-hidden="true">
               e.preventDefault();
               console.log('errors', errors)
               
-              alert(
-                errors
+              swal('You cannot pick the same team more than once:',
+                `${errors.join('\n')}`
               );
             })
           });
         </script>
-
       </div>
     </div>
   </div>

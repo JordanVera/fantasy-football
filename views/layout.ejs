@@ -7,6 +7,8 @@
   
   <script src="https://kit.fontawesome.com/c03ec31dc2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
@@ -17,5 +19,24 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    const target = window.document.getElementsByClassName('retro-glow')[0]
+
+    const flickerLetter = letter => `<span
+      style="animation: text-flicker-in-glow ${Math.random()*4}s linear both ">${letter}</span>`
+    const colorLetter = letter => `<span style="color: hsla(${Math.random()*360}, 100%, 80%, 1);">${letter}</span>`;
+    const flickerAndColorText = text =>
+    text
+    .split('')
+    .map(flickerLetter)
+    .map(colorLetter)
+    .join('');
+    const neonGlory = target => target.innerHTML = flickerAndColorText(target.textContent);
+
+
+    neonGlory(target);
+    target.onclick = ({ target }) => neonGlory(target);
+  </script>
 </body>
 </html>
