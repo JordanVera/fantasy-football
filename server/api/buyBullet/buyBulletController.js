@@ -73,7 +73,8 @@ function bulletsRepo() {
         returnUrl: `${process.env.WEBHOOK}/api/dashboard`
       },
       pageSettings: {
-        displaySellerInfo: false
+        displaySellerInfo: false,
+        shopName: false
       },
       settlementCurrency: 'USD' // specifies in which currency you want to settle
     };
