@@ -74,7 +74,7 @@ function bulletsRepo() {
       },
       pageSettings: {
         displaySellerInfo: false,
-        shopName: false
+        shopName: 'NFL Last Longer'
       },
       settlementCurrency: 'USD' // specifies in which currency you want to settle
     };
