@@ -7,7 +7,7 @@
 
 <!-- <a href="/api/users/buyBullet" class="btn btn-warning">Buy Bullet</a> -->
 <div class="col-md-8 m-auto">
-  <ul class="nav justify-content-center mt-5 mb-5">
+  <ul class="main-nav nav justify-content-center mt-5 mb-5">
     <li class="nav-item">
       <button type="button" class="btn btn-primary glow-on-hover" data-toggle="modal" data-target="#exampleModal">
         <a><i class="fas fa-football-ball"></i> Make Your Picks</a>
@@ -36,10 +36,12 @@
       <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
       and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
     <p class="text-warning" style="size: 12px">***Please note you must make your pick on Thursday before 5pm CST (6pm EST) for every bullet.  <strong>Even if you are not picking the thursday game.</strong>***</p>
-    <a style="width: 130px;" class="btn m-auto btn-primary glow-on-hover" data-toggle="modal" data-target="#bulletsModal">Buy Bullets</a>
+    
+    <div class="m-auto btn-list">
+      <a style="width: 130px;" class="btn btn-primary glow-on-hover" data-toggle="modal" data-target="#bulletsModal">Buy Bullets</a> <a class="ml-2 btn btn-secondary" href="/api/users/logout">Logout</a>
+    </div>
   </div>
 </div>
-
 
 <div class="table-responsive mt-5">
   <table class="table">

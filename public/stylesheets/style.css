@@ -1,6 +1,12 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 12px;
+  padding-top: 0px !important;
+  font: 14px "roboto", Helvetica, Arial, sans-serif;
+}
+
+.btn-list > .btn {
+  width: 104px !important;
+  border-radius: 0%;
 }
 
 a {
@@ -39,6 +45,18 @@ td.bullet-loss ~ td {
 
 .accent {
   color: green
+}
+
+.main-nav a {
+  font-size: 17px;
+}
+
+nav { color: #282828 !important; }
+
+.gif, 
+.embed {
+  padding: 0px !important;
+  margin: 0px !important;
 }
 
 /* SWAL Modal And Erros Styles */
