@@ -29,12 +29,12 @@
 </div>
 <div class="col-md-6 m-auto">
   <div class="card card-body">
-    <h3 class="text-center mb-3"><%= user.name %>'s Dashboard</h3>
-    <p>There is a total of <%= users.length %> users with a total of <%= totalUserBullets %> bullets</p>
-    <p>Which makes the prize pool $<%= totalUserBullets * 100 %></p>
+    <h3 class="text-center mb-3"><span class="capitalize"><%= user.name %>'s</span> Dashboard</h3>
+    <p>There is a total of <%= users.length %> users with <%= totalUserBullets %> bullets which makes the prize pool $<%= totalUserBullets * 100 %></p>
     <p>The Date is now
       <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
       and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
+    <p style="font-weight: 600;">Please make sure to read the rules!</p>
     <p class="text-warning" style="size: 12px">***Please note you must make your pick on Thursday before 5pm CST (6pm EST) for every bullet.  <strong>Even if you are not picking the thursday game.</strong>***</p>
     
     <div class="m-auto btn-list">
@@ -90,6 +90,8 @@
     </tbody>
   </table>
 </div>
+
+<%- include('partials/footer'); %>
 
 <!-- Rules Modal -->
 <div class="modal fade" id="rulesModal" tabindex="-1" role="dialog" aria-labelledby="rulesModalLabel" aria-hidden="true">
@@ -158,6 +160,8 @@
   </div>
 </div>
 </div>
+
+
 
 <!-- Make Your Picks Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -271,4 +275,3 @@ aria-hidden="true">
   </div>
 </div>
 </div>
-
