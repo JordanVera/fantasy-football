@@ -106,6 +106,7 @@ exports.dashboard = async (req, res) => {
     bullets,
     totalUserBullets,
     playingBullets,
-    weeks
+    weeks,
+    _
   });
 };
