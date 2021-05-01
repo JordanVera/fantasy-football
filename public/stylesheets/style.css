@@ -65,11 +65,11 @@ box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.45);
 }
 
 .login_card {
-  height: 370px;
+  height: 430px;
 }
 
 .register_card {
- height: 512px;
+ height: 642px;
 }
 
 .card-header h3{

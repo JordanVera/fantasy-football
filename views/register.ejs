@@ -7,6 +7,7 @@
     </div>
     <div class="card-body">
       <%- include('partials/messages'); %>
+      <p class="text-warning" style="size: 12px">***Please use an accurate phone number and email, also be sure to pick a solid passoword you will remember.  You cannot reset any of your data.***</p>
       <form action="/api/users/register" method="POST">
         <div class="form-group">
           <label for="name">Screen Name</label>
@@ -19,15 +20,43 @@
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
         </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter Email"
+                value="<%= typeof email != 'undefined' ? email : '' %>"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="email">Phone</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="form-control"
+                placeholder="Ex: 225-333-3322"
+                value="<%= typeof phone != 'undefined' ? phone : '' %>"
+              />
+            </div>
+          </div>
+        </div>
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="name">Promo Code (not required)</label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="name"
+            id="promo"
+            name="promo"
             class="form-control"
-            placeholder="Enter Email"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
+            placeholder="Enter Promo Code"
+            value="<%= typeof promo != 'undefined' ? promo : '' %>"
           />
         </div>
         <div class="form-group">

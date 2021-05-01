@@ -1,3 +1,5 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable func-names */
 /* eslint-disable comma-dangle */
 const mongoose = require('mongoose');
 
@@ -9,6 +11,18 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true
+  },
+  phone: {
+    type: String,
+    validate: {
+      validator: function(v) {
+        return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(v);
+      }
+    },
+    required: [true, 'User phone number required']
+  },
+  promo: {
+    type: String
   },
   password: {
     type: String,

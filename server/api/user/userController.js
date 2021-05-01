@@ -34,11 +34,11 @@ exports.getRegister = (req, res, next) => {
 
 exports.postRegister = (req, res, next) => {
   const {
-    name, email, password, password2
+    name, email, password, password2, promo, phone
   } = req.body;
   const errors = [];
 
-  if (!name || !email || !password || !password2) {
+  if (!name || !email || !password || !password2 || !phone) {
     errors.push({ msg: 'Please fill in all fields' });
   }
 
@@ -48,6 +48,10 @@ exports.postRegister = (req, res, next) => {
 
   if (password.length < 6) {
     errors.push({ msg: 'Password should be at least 6 characters' });
+  }
+
+  if (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phone) === false) {
+    errors.push({ msg: 'please enter a valid phone number' });
   }
 
   if (errors.length > 0) {
@@ -71,9 +75,12 @@ exports.postRegister = (req, res, next) => {
             password2
           });
         } else {
+          // create new user if all validation is successfull
           const newUser = new User({
             name,
             email,
+            phone,
+            promo,
             password
           });
 
@@ -127,6 +134,7 @@ exports.getLogout = (req, res, next) => {
 //     }
 //   );
 // };
+
 
 // eslint-disable-next-line consistent-return
 exports.makePicks = async (req, res, next) => {

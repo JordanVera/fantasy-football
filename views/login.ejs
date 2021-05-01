@@ -9,6 +9,7 @@
     </div>
     <div class="card-body">
        <%- include('partials/messages'); %>
+       <p class="text-warning" style="size: 12px">***Please note that password AND email fields are case sensitive.***</p>
       <form action="/api/users/login" method="POST">
         <div class="form-group">
           <label for="email">Email</label>
