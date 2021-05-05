@@ -1,0 +1,2 @@
+define("modules/iconHelper",[],function(){return function(){return{get:function(n,e,o){e=e||"x-large",typeof n!=typeof[]&&(n=[n]);var r=0,i=n.length,t=[];for(r;r<i;r++){var c=n[r],u=document.querySelector(".nfl-o-icon-included--"+c);if(!u)return;var l=u.innerHTML,a=o?' aria-hidden="true"':"";t.push('<span class="js-iconhelper--',c," nfl-o-icon nfl-o-icon--",e,'"><svg class="nfl-o-icon-',c,'" viewBox="',u.getAttribute("data-viewbox"),'"',a,">",l,"</svg></span>")}return t.join("")}}}()});
+//# sourceMappingURL=iconHelper.js.map

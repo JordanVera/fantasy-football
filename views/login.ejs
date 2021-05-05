@@ -1,39 +1,40 @@
 <link rel="stylesheet" href="../public/stylesheets/landingPage.css">
 
 <%- include('partials/header'); %>
-
-<div class="d-flex justify-content-center h-100">
-  <div class="login_card">
-    <div class="card-header">
-      <h3>Sign In</h3>
-    </div>
-    <div class="card-body">
-       <%- include('partials/messages'); %>
-       <p class="text-warning" style="size: 12px">***Please note that password AND email fields are case sensitive.***</p>
-      <form action="/api/users/login" method="POST">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Enter Email"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Enter Password"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-      </form>
-      <p class="links pt-4">No Account? <a style="font-size: 17px;" href="/api/users/register">Register</a></p>
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="login_card">
+      <div class="card-header">
+        <h3>Sign In</h3>
+      </div>
+      <div class="card-body">
+        <%- include('partials/messages'); %>
+        <p class="text-warning" style="size: 12px">***Please note that password AND email fields are case sensitive.***</p>
+        <form action="/api/users/login" method="POST">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <p class="links pt-4">No Account? <a style="font-size: 17px;" href="/api/users/register">Register</a></p>
+      </div>
     </div>
   </div>
-</div>
+</div><!-- continaer -->

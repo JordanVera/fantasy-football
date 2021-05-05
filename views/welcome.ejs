@@ -1,28 +1,100 @@
 <%- include('partials/header'); %>
-<div class="jumbotron">
-  <h1 class="text-center" style="font-size: 32px;">Welcome To Nfllastlonger.com</h1>
-  <p class="lead text-center">The number one NFL survivor league pool</p>
-  <hr class="my-4">
-  <h3 class="text-center mb-4" style="font-size: 18px;">Accepted payment methods</h3>
-  <div class="d-flex justify-content-center mb-5">
-      <img class="crypto-logo" src="/images/bitcoinLogo.png" alt="">
-      <img class="crypto-logo" src="/images/ethereumLogo.png" alt="">
-      <img class="crypto-logo" src="/images/litecoinLogo.png" alt="">
-      <img class="crypto-logo" src="/images/rippleLogo.png" alt="">
-      <img class="crypto-logo" src="/images/stellarLumensLogo.png" alt="">
-  </div>
-  <div class="d-flex justify-content-center h-100">
-    <div class="welcome_card">
-      <div class="card-body">
-        <h1> <img height="120px" src="/images/nflLogo.png" alt=""></h1>
-          <h3 class="whiteText">Last Longer</h3>
-          <p class="whiteText">Create an account or login</p>
-          <a href="/api/users/register" class="btn btn-success btn-block mb-2">Register</a>
-          <a href="/api/users/login" class="btn btn-primary btn-block">Login</a>
+
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1>Welcome To Nfllastlonger.com</h1>
+        <p class="lead whiteText">The number one NFL survivor league pool</p>
+        <a href="/api/users/register" class="btn btn-warning btn-block mb-2">Register</a>
+        <a href="/api/users/login" class="btn btn-primary btn-block">Login</a>
       </div>
     </div>
   </div>
-</div>
+</header>
+
+<section class="logoBanner">
+  <img class="nflLogo" src="/images/teamLogos/bears.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/panthers.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/saints.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/texans.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/ravens.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/footballTeam.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/chiefs.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/buccs.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/jaguars.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/raiders.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/patriots.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/rams.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/vikings.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/titans.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/seahawks.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/packers.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/falcons.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/eagles.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/dallas.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/dolphins.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/cols.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/jets.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/niners.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/giants.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/lions.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/cleveland.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/chargers.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/cardinals.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/bills.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/bengals.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/steelers.png" alt="">
+  <img class="nflLogo" src="/images/teamLogos/broncos.png" alt="">
+</section>
+
+<div class="container">
+  <section>
+    <h4 class="text-center my-5">Three Step Process</h4>
+    <div class="row threeStepProcess">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-sign-in-alt fa-3x"></i>
+            <h5 class="card-title orange">Sign Up</h5>
+            <p class="card-text">When the game opens, create an account by visiting our sign in page.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-football-ball fa-3x"></i>
+            <h5 class="card-title orange">Make Picks</h5>
+            <p class="card-text">Pick one NFL team to win each week, no points spread. Easy, right?</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas fa-share fa-3x"></i>
+            <h5 class="card-title orange">Advance</h5>
+            <p class="card-text">Get it right and advance to the next week. Get it wrong and you're out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="signUp my-5">
+    <h4 class="text-center my-5">Sign Up</h4>
+    <div class="card py-3 px-3">
+      <div class="card-body text-center">
+        <h5 class="card-title capitalize">Create an account now, before sign up is over.</h5>
+        <p class="card-text">Our last longer stops taking entries a day before the NFL season begins.  Sign up now to get started and get in on the action!</p>
+        <a class="mx-auto btn btn-warning" href="/api/users/register" class="btn btn-warning btn-block mb-2">Register</a>
+      </div>
+    </div>
+  </section>
+  
+</div> <!-- container -->
+
 
 
 

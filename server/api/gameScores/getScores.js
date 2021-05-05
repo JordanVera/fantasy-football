@@ -53,6 +53,7 @@ function getSchedule() {
           week15: [],
           week16: [],
           week17: [],
+          week18: []
         };
 
         const losers = {
@@ -73,6 +74,7 @@ function getSchedule() {
           week15: [],
           week16: [],
           week17: [],
+          week18: []
         };
 
         for (let i = 0; i < 17; i++) {

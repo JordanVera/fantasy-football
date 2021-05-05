@@ -1,0 +1,2 @@
+define("addons/services/accountButtonService",["addons/services/"+window.environment+"/accountButtonService"],function(n){return function(){return{appendRedirectUrl:function(){return n.appendRedirectUrl()},renderLogoutButton:function(e){if(e)return n.renderLogoutButton(e)}}}()});
+//# sourceMappingURL=accountButtonService.js.map

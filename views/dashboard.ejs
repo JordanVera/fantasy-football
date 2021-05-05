@@ -4,7 +4,7 @@
 
 <% const today = new Date() %>
 <% const test =  new Date('March 23, 2021') %>
-
+<div class="container">
 <!-- <a href="/api/users/buyBullet" class="btn btn-warning">Buy Bullet</a> -->
 <div class="col-md-8 m-auto">
   <ul class="main-nav nav justify-content-center mt-5 mb-5">
@@ -23,10 +23,11 @@
       <a class="nav-link" href="https://www.nfl.com/schedules/" target="_blank">Schedule</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-info" href="#"><i class="fab fa-discord"></i> Discord Server</a>
+      <a class="nav-link discordLink" href="#"><i class="fab fa-discord"></i> Discord Server</a>
     </li>
   </ul>
 </div>
+
 <div class="col-md-6 m-auto">
   <div class="card card-body">
     <h3 class="text-center mb-3"><span class="capitalize"><%= user.name %>'s</span> Dashboard</h3>
@@ -65,6 +66,7 @@
         <th scope="col">Week 15</th>
         <th scope="col">Week 16</th>
         <th scope="col">Week 17</th>
+        <th scope="col">Week 18</th>
       </tr>
     </thead>
     <tbody>
@@ -73,7 +75,7 @@
         <% for(i=0; i < user.bullets; i++){ %>
           <tr id="<%= `${user.name}-${i}` %>">
             <th><%= `${user.name} (${i + 1})` %></th>
-            <% for(let week = 0; week < 17; week++){
+            <% for(let week = 0; week < 18; week++){
               const bullet = (bullets[`${user.name}-${i}`] || {});
               const pick = bullet[week];
               const className = bullet.missingWeek === week
@@ -105,16 +107,16 @@
     </div>
     <div class="modal-body">
       <ol>
-        <li>This is a Members-Only Pool. Membership costs $10 per entry, per year.</li>
-        <li>Participation in the pool is $100 per entry. All participation funds are distributed - 90% to the winner and 10% to 2nd place.</li>
+        <li>Participation in the last longer is $110 per entry.</li>
+        <li>The payout percentages are as follows - 80% to the winner and 20% to 2nd place.</li>
         <li>Pick the outright WINNER (no point spreads) for one NFL game each week.</li>
         <li>You must make a selection each week.</li>
-        <li>A team may only be selected once during the regular season (i.e., if you pick the Giants in week 1, you may not select the Giants again for the remainder of the regular season). Slates are wiped clean for the playoffs. If the pool continues into the playoffs, you can use each team one more time.</li>
+        <li>A team may only be selected once during the regular season (for example, if you pick the Chiefs in week 1, you may not select the Chiefs again for the remainder of the regular season). Slates are wiped clean for the playoffs. If the pool continues into the playoffs, you can use each team one more time.</li>
         <li>You continue in the pool until a loss (or tie) is suffered, then you're out. YES, TIES ARE LOSSES!</li>
         <li>PICKS MUST BE SUBMITTED BY 5PM PT THURSDAYS (This is REGARDLESS of whether you are picking the Thursday game or not). There is a Thursday night game just about every week this season. Any pick not submitted by the deadline will be considered a loss and the contestant will be eliminated from the pool. It is possible (and recommended) to submit picks for future weeks. HINT: Visit the site early in the week, or the previous week, and make your pick. Then come back later and change it if necessary. This way, if your internet service is down on Thursday, at least you have still submitted a pick.</li>
         <li>At about Week15 or Week16, the NFL stops having Thursday games. The actual week changes from season to season. At that time the pick deadline will change to Friday evening at 8:00pm PT (11:00pm ET) for the rest of the season, and during the Playoffs.</li>
         <li>You must double-check that your picks have been recorded on the website properly AFTER you have submitted your pickss from your cell phone, tablet or computer.</li>
-        <li>Your official picks are the picks displayed in the table with your username next to them.</li>
+        <li>Your official picks are the picks displayed in the table with your screenname next to them.</li>
         <li>The game will continue until one contestant remains. However, via mutual consent, the pool may end at any time, with the prize split among the remaining participants. If a partial split is unanimously agreed to, the remaining pot is then, by default, 100% to the winner, unless prior, unanimous consent is reached.</li>
         <li>If all remaining contestants are eliminated in the same week, the contest is over, and the contestants that were eliminated in that week are ALL declared winners and will split the prize. However, the contest could be continued by unanimous consent of the 'winners' and NFLSurvivor Administration.</li>
         <li>If the regular season ends with no outright winner, AND there has been no previous split, the pot will be cut in half. Half will be evenly distributed among the remaining players, and the other half will become the new, winner-take-all, pot that will be played for in the playoffs. Team restrictions will be wiped clean and re-started for the remaining participants.</li>
@@ -183,7 +185,7 @@ aria-hidden="true">
     </div>
     <div class="modal-body">
       <div id="accordion">
-        <!--% for(let i = 1; i <= 17; i++){ %>-->
+        <!--% for(let i = 1; i <= 18; i++){ %>-->
         <% weeks.forEach((i, index) => { %>
 
         <div class="card">
@@ -303,3 +305,4 @@ aria-hidden="true">
   </div>
 </div>
 </div>
+</div> <!-- container -->

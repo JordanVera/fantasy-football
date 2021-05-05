@@ -50,7 +50,7 @@ exports.dashboard = async (req, res) => {
     // console.log(bulletNumber, userName);
 
     // const userWeeks = Object.values(bullets[bullet] || {});
-    const userWeeks = [...Array(17)].map((n, index) => {
+    const userWeeks = [...Array(18)].map((n, index) => {
       return bullets[bullet] && bullets[bullet][index];
     });
 

@@ -1,91 +1,92 @@
 <%- include('partials/header'); %>
-
-<div class="d-flex justify-content-center h-100">
-  <div class="register_card">
-    <div class="card-header">
-      <h3>Register</h3>
-    </div>
-    <div class="card-body">
-      <%- include('partials/messages'); %>
-      <p class="text-warning" style="size: 12px">***Please use an accurate phone number and email, also be sure to pick a solid passoword you will remember.  You cannot reset any of your data.***</p>
-      <form action="/api/users/register" method="POST">
-        <div class="form-group">
-          <label for="name">Screen Name</label>
-          <input
-            type="name"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter Screen Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
-          />
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="form-control"
-                placeholder="Enter Email"
-                value="<%= typeof email != 'undefined' ? email : '' %>"
-              />
+<div class="container" style="padding-top: 70px;">
+  <div class="d-flex justify-content-center h-100">
+    <div class="register_card">
+      <div class="card-header">
+        <h3>Register</h3>
+      </div>
+      <div class="card-body">
+        <%- include('partials/messages'); %>
+        <p class="text-warning" style="size: 12px">***Please use an accurate phone number and email, also be sure to pick a solid passoword you will remember.  You cannot reset any of your data.***</p>
+        <form action="/api/users/register" method="POST">
+          <div class="form-group">
+            <label for="name">Screen Name</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Screen Name"
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Enter Email"
+                  value="<%= typeof email != 'undefined' ? email : '' %>"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="email">Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="form-control"
+                  placeholder="Ex: 225-333-3322"
+                  value="<%= typeof phone != 'undefined' ? phone : '' %>"
+                />
+              </div>
             </div>
           </div>
-          <div class="col-6">
-            <div class="form-group">
-              <label for="email">Phone</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                class="form-control"
-                placeholder="Ex: 225-333-3322"
-                value="<%= typeof phone != 'undefined' ? phone : '' %>"
-              />
-            </div>
+          <div class="form-group">
+            <label for="name">Promo Code (not required)</label>
+            <input
+              type="name"
+              id="promo"
+              name="promo"
+              class="form-control"
+              placeholder="Enter Promo Code"
+              value="<%= typeof promo != 'undefined' ? promo : '' %>"
+            />
           </div>
-        </div>
-        <div class="form-group">
-          <label for="name">Promo Code (not required)</label>
-          <input
-            type="name"
-            id="promo"
-            name="promo"
-            class="form-control"
-            placeholder="Enter Promo Code"
-            value="<%= typeof promo != 'undefined' ? promo : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Create Password"
-            value="<%= typeof password != 'undefined' ? password : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password</label>
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            class="form-control"
-            placeholder="Confirm Password"
-            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">
-          Register
-        </button>
-      </form>
-      <p class="links lead mt-4">Have An Account? <a href="/api/users/login">Login</a></p>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Create Password"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Confirm Password"
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Register
+          </button>
+        </form>
+        <p class="links lead mt-4">Have An Account? <a href="/api/users/login">Login</a></p>
+      </div>
     </div>
   </div>
-</div>
+</div> <!-- container -->
