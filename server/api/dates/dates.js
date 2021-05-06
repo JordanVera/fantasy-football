@@ -5,9 +5,9 @@
 const moment = require('moment');
 
 const dates = [
-  moment('2021-05-05T02:55'),
-  moment('2021-05-10T02:55'),
-  moment('2021-05-15T02:55'),
+  moment('2021-05-02T02:55'),
+  moment('2021-05-03T02:55'),
+  moment('2021-05-04T02:55'),
   moment('2021-05-20T02:55')
 ];
 

@@ -1,2 +1,0 @@
-define("addons/services/league/accountButtonService",[],function(){return function(){return{appendRedirectUrl:function(){return""},renderLogoutButton:function(n){}}}()});
-//# sourceMappingURL=accountButtonService.js.map
