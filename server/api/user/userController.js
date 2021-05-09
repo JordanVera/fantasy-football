@@ -17,7 +17,11 @@ const bulletRepo = require('../buyBullet/buyBulletController');
 const { getStartingWeek } = require('../dates/dates.js');
 
 exports.getLogin = (req, res, next) => {
-  res.render('login');
+  const { user } = req;
+
+  res.render('login' , {
+    user
+  });
 };
 
 exports.postLogin = (req, res, next) => {
@@ -29,7 +33,11 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.getRegister = (req, res, next) => {
-  res.render('register');
+  const { user } = req;
+
+  res.render('register', {
+    user
+  });
 };
 
 exports.postRegister = (req, res, next) => {
@@ -134,7 +142,6 @@ exports.getLogout = (req, res, next) => {
 //     }
 //   );
 // };
-
 
 // eslint-disable-next-line consistent-return
 exports.makePicks = async (req, res, next) => {

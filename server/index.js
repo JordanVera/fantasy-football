@@ -6,7 +6,11 @@ const api = require('./api/api');
 app.use('/api', api);
 
 app.get('/', (req, res, next) => {
-  res.render('welcome');
+  const { user } = req;
+
+  res.render('welcome', {
+    user
+  });
 });
 
 module.exports = app;

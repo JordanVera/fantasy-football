@@ -1,4 +1,4 @@
-<%- include('partials/dashboardHeader'); %>
+<%- include('partials/header'); %>
 <% const teamsArr = ['ARI', 'ATL', 'BAL', 'BUF', 'CAR', 'CHI', 'CIN', 'CLE', 'DAL', 'DEN', 'DET', 'GB', 'HOU', 'IND', 'JAX',
 'KC', 'LAC', 'LAR', 'LV', 'MIA', 'MIN', 'NE', 'NO', 'NYG','NYJ', 'PHI', 'PIT', 'SEA', 'SF', 'TB', 'TEN', 'WAS' ] %>
 
@@ -243,13 +243,23 @@ aria-hidden="true">
 
           console.log('userRows', userRows)
           
+          // const removedWeeks = forms.length;
+          const removedWeeks = userRows[0].length - forms.length;
+          console.log({removedWeeks})
+
           // Form index is actually the  week index
           forms.forEach((form, formIndex) => {
 
             form.addEventListener('submit', e => {
+              formIndex += removedWeeks;
+
               let valid = true;
               const errors = [];
               let errorMsg;
+
+              const formGroups = form.querySelectorAll('.form-group');
+              const removedGroups = userRows.length - formGroups.length;
+              console.log({removedGroups})
 
               form.querySelectorAll('.form-group').forEach((group, rowIndex) => {
                 const selection = group.querySelector('select').value;
@@ -267,6 +277,10 @@ aria-hidden="true">
                 }
               });
 
+              console.log({
+                valid,
+
+              })
               
               if (valid) return;
               
