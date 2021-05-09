@@ -247,6 +247,20 @@ nav { color: #282828 !important; }
   margin: 0px !important;
 }
 
+.form-check {
+  padding-bottom: 24px;
+  margin: 0 auto;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+}
+
+.center-container .form-check-label {
+  padding-right: 12px;
+}
+
 /* SWAL Modal And Erros Styles */
 .swal-modal {
   background: #232526;  /* fallback for old browsers */
