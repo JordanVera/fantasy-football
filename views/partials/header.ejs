@@ -5,11 +5,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="/"><h2 class="retro-glow">NFLLASTLONGER.COM</h2></a>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a href="mailto:nfllastlonger@protonmail.com">Contact Us</a>
-        </li>
-      </ul>
+      <% if(!user) { %>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/api/users/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:nfllastlonger@protonmail.com">Contact Us</a>
+          </li>
+        </ul>
+      <% } else { %>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:nfllastlonger@protonmail.com">Contact Us</a>
+          </li>
+        </ul>
+      <% } %>
       <div class="d-flex ml-auto">
         <% if(!user) { %>
           <a class="btn btn-primary" href="/api/users/login">Login</a>
@@ -22,14 +36,4 @@
   </div>
 </nav>
 
-<!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/api/users/register">Register</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/api/users/login">Login</a>
-  </li>
-</ul> -->
+
