@@ -39,6 +39,7 @@ function bulletsRepo() {
   }
 
   // This controller gets used in userController in postRegister controller
+  // when a user signs up it creates a customer in COIMQVEST apo
   function createCustomer(customerObj) {
     return new Promise((resolve, reject) => {
       client.post('/customer',

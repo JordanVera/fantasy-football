@@ -32,6 +32,7 @@
     "jade": "~1.11.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.14",
     "morgan": "~1.9.1",

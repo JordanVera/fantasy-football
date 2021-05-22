@@ -65,17 +65,17 @@ exports.dashboard = async (req, res) => {
         console.log('loserWeek', loserWeek);
         console.log('weekPick', weekPick);
       }
-      const some = loserWeek.includes(weekPick);
+      const someLoserWeek = loserWeek.includes(weekPick);
 
       // const loserWeek = losers[`week${weekIndex + 1}`][weekIndex];
       // const some = loserWeek === weekPick;
 
-      if (some) {
+      if (someLoserWeek) {
         // console.log(`${weekPick} of week ${weekIndex + 1} is inside`, loserWeek);
         bullets[bullet].missingWeek = weekIndex;
       }
 
-      return some;
+      return someLoserWeek;
     });
   };
 

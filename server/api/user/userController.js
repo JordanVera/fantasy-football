@@ -40,10 +40,12 @@ exports.getRegister = (req, res, next) => {
   });
 };
 
-exports.postRegister = (req, res, next) => {
+exports.postRegister = (req, res) => {
   const {
-    name, email, password, password2, promo, phone
+    name, email, password, password2, promo, phone, user
   } = req.body;
+  console.log({body: req.body})
+
   const errors = [];
 
   if (!name || !email || !password || !password2 || !phone) {
@@ -68,7 +70,8 @@ exports.postRegister = (req, res, next) => {
       name,
       email,
       password,
-      password2
+      password2,
+      user
     });
   } else {
     User.findOne({ email })

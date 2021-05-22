@@ -47,11 +47,11 @@
 <div class="table-responsive mt-5">
   <div class="center-container">
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+      <input class="form-check-input" type="radio" name="active-bullets" id="exampleRadios1" value="all-bullets" checked>
       <label class="form-check-label" for="exampleRadios1">
         Show All Bullets
       </label>
-      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+      <input class="form-check-input" type="radio" name="active-bullets" id="exampleRadios2" value="active-bullets">
       <label class="form-check-label" for="exampleRadios2">
         Show Active Bullets
       </label>
@@ -84,7 +84,7 @@
     <tbody>
     <%# this code creates a row for ever users bullet instance  %>
       <% users.forEach(function(user){ %>
-        <% for(i=0; i < user.bullets; i++){ %>
+        <% for(let i = 0; i < user.bullets; i++){ %>
           <tr id="<%= `${user.name}-${i}` %>">
             <th><%= `${user.name} (${i + 1})` %></th>
             <% for(let week = 0; week < 18; week++){
@@ -325,6 +325,24 @@ aria-hidden="true">
               localStorage.setItem('fired', '1');
           }
 
+        </script>
+
+        <script>
+          // Toggle between active and all bullets
+          window.addEventListener('load', function() {
+            const $radioButtons = $('[name="active-bullets"]');
+
+            $radioButtons.on('change', function() {
+              const onlyActive = $(this).val() === 'active-bullets';
+              toggleRows(!onlyActive);
+            })
+
+            function toggleRows(hideNonActive) {
+              $('table .bullet-loss').parent('tr').toggle(hideNonActive);
+            }
+
+            $radioButtons.eq(0).prop('checked', 'checked');
+          })
         </script>
       </div>
     </div>
