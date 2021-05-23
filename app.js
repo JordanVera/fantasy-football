@@ -40,18 +40,17 @@ if(process.env.NODE_ENV === 'production') {
     }
   });
 
-
-  app.all(/.*/, function(req, res, next) {
-    var host = req.header("host");
-    if (host.match(/^www\..*/i)) {
-      next();
-    } else {
-      res.redirect(301, "http://www." + host);
-    }
-  });
-
   console.log = function () { };
 }
+
+app.all(/.*/, function(req, res, next) {
+  var host = req.header("host");
+  if (host.match(/^www\..*/i)) {
+    next();
+  } else {
+    res.redirect(301, "http://www." + host);
+  }
+});
 
 app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
