@@ -31,14 +31,12 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.log(err));
 
 if(process.env.NODE_ENV === 'production') {
-  // app.use((req, res, next) => {
-  //   if (req.header('x-forwarded-proto') !== 'https')
-  //     res.redirect(`https://${req.header('host')}${req.url}`)
-  //   else
-  //     next()
-  // });
-
-  app.all('*', require('./express-force-domain')('https://www.nfllastlonger.com'));
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+      next()
+  });
 
   console.log = function () { };
 }
