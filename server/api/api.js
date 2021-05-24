@@ -1,7 +1,4 @@
-const express = require('express');
-
-// eslint-disable-next-line no-unused-vars
-const app = express();
+/* eslint-disable comma-dangle */
 const router = require('express').Router();
 const dashboardRouter = require('./dashboard/dashboardRouter');
 const usersRouter = require('./user/userRoutes');

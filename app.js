@@ -9,31 +9,34 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const chalk = require('chalk');
 const flash = require('connect-flash');
 const session = require('express-session');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 const passport = require('passport');
 const dotenv = require('dotenv');
-
-dotenv.config();
-
-const indexRouter = require('./server/index');
+const { rangeRight } = require('lodash');
 
 const port = process.env.PORT || 3000;
 const app = express();
+dotenv.config();
 
+const indexRouter = require('./server/index');
 require('./server/config/passport')(passport);
 
 // DB Config
 const db = process.env.MongoURI;
 
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => { console.log('MONGODB Connected'); })
+  .then(() => console.log(chalk.yellowBright('MONGODB Connected')))
   .catch(err => console.log(err));
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https') {
-      res.redirect(`https://${req.header('host')}${req.url}`)
+      res.redirect(`https://${req.header('host')}${req.url}`);
     }
     else {
       next();
@@ -43,18 +46,10 @@ if(process.env.NODE_ENV === 'production') {
   console.log = function () { };
 }
 
-app.all(/.*/, function(req, res, next) {
-  var host = req.header("host");
-  if (host.match(/^www\..*/i)) {
-    next();
-  } else {
-    res.redirect(301, "http://www." + host);
-  }
-});
-
 app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -72,6 +67,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(flash());
+
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
+app.use(xss());
+app.use(hpp());
 
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
@@ -101,7 +102,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Running on port ${port}`);
+  console.log(`Running on port ${chalk.yellowBright(port)}`);
 });
 
 module.exports = app;
