@@ -57,7 +57,16 @@ function bulletsRepo() {
     });
   }
 
-  function buyBullet(req, res, next) {
+  async function buyBullet(req, res, next) {
+    const customerId = await createCustomer({ // Create a customer in the Coinqvest API
+      customer: {
+        email: req.user.email
+      }
+    });
+
+    console.log(`customer id = ${customerId}`);
+
+
     // this object get passed to Coinqvest API
     const chargeObj = {
       charge: {

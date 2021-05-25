@@ -60,6 +60,8 @@ exports.postRegister = (req, res) => {
     errors.push({ msg: 'Password should be at least 6 characters' });
   }
 
+  if (email.endsWith('@example.com')) errors.push({ msg: '@example.com is not a valid email provider' });
+
   if (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phone) === false) {
     errors.push({ msg: 'please enter a valid phone number' });
   }
@@ -71,7 +73,8 @@ exports.postRegister = (req, res) => {
       email,
       password,
       password2,
-      user
+      user,
+      phone
     });
   } else {
     User.findOne({ email })
@@ -95,7 +98,7 @@ exports.postRegister = (req, res) => {
             password
           });
 
-          const customerId = await bulletRepo.createCustomer({
+          const customerId = await bulletRepo.createCustomer({ // Create a customer in the Coinqvest API
             customer: {
               email: newUser.email
             }
