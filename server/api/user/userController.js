@@ -14,7 +14,8 @@ const _ = require('lodash');
 const chalk = require('chalk');
 const User = require('./userModel');
 const bulletRepo = require('../buyBullet/buyBulletController');
-const { getStartingWeek } = require('../dates/dates.js');
+const { getStartingWeek, getAvailableWeeks } = require('../dates/dates.js');
+const gamesScores = require('../gameScores/getScores.js');
 
 exports.getLogin = (req, res, next) => {
   const { user } = req;
@@ -26,8 +27,8 @@ exports.getLogin = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: '/api/dashboard',
-    failureRedirect: '/api/users/login',
+    successRedirect: '/dashboard',
+    failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);
 };
@@ -44,7 +45,8 @@ exports.postRegister = (req, res) => {
   const {
     name, email, password, password2, promo, phone, user
   } = req.body;
-  console.log({body: req.body})
+
+  console.log({ body: req.body });
 
   const errors = [];
 
@@ -98,11 +100,11 @@ exports.postRegister = (req, res) => {
             password
           });
 
-          const customerId = await bulletRepo.createCustomer({ // Create a customer in the Coinqvest API
+          const customerId = await bulletRepo.createCustomer({
             customer: {
               email: newUser.email
             }
-          });
+          }); // Create a customer in the Coinqvest API
 
           console.log(`customer id = ${customerId}`);
           
@@ -116,7 +118,7 @@ exports.postRegister = (req, res) => {
               newUser.save()
                 .then(user => {
                   req.flash('success_msg', 'You are now registered and can log in');
-                  res.redirect('/api/users/login');
+                  res.redirect('/users/login');
                 })
                 .catch(error => console.log(error));
             });
@@ -130,7 +132,70 @@ exports.getLogout = (req, res, next) => {
   req.logout();
 
   req.flash('success_msg', 'You are logged out');
-  res.redirect('/api/users/login');
+  res.redirect('/users/login');
+};
+
+exports.updateUserEmail = async (req, res) => {
+  const userId = { _id: req.user._id };
+  const newEmail = { email: req.body.email };
+
+  await User.findOneAndUpdate(userId, newEmail);
+  req.flash('success_msg', `you have successfully updated your email to ${newEmail.email}`);
+  res.redirect('/dashboard');
+};
+
+exports.updateUserPassword = async (req, res) => {
+  const { password, password2 } = req.body;
+  const errors = [];
+
+  const userId = { _id: req.user._id };
+
+  if (password !== password2) {
+    req.flash('error_msg', 'Passwords do not match');
+  }
+
+  if (password.length < 6) {
+    req.flash('error_msg', 'Password should be at least 6 characters');
+  }
+
+  if (errors.length == 0) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(password, salt, async (err, hash) => {
+        const newPassword = { password: hash };
+        if (err) throw err;
+        
+        console.log('hashed password = ', hash);
+
+        await User.findOneAndUpdate(userId, newPassword);
+      });
+    }); 
+
+    req.flash('success_msg', 'You have succesfully changed your password');
+  }
+
+  console.log('password', password);
+  console.log('password2', password2);
+
+  res.redirect('/dashboard');
+};
+
+exports.deleteUser = async (req, res) => {
+  const deleteUserFormField = req.body.deleteUser;
+  const userId = req.user._id;
+
+  if (deleteUserFormField === 'DELETE') {
+    await User.findByIdAndDelete(userId, (err, docs) => {
+      if (err) console.log(err);
+
+      console.log('Deleted : ', docs);
+    });
+
+    req.flash('success_msg', 'you have succesfully deleted your account');
+    res.redirect('/users/register');
+  }
+
+  req.flash('error_msg', 'please type DELETE in all caps to delete your account');
+  res.redirect('/dashboard');
 };
 
 // eslint-disable-next-line consistent-return
@@ -172,7 +237,7 @@ exports.makePicks = async (req, res, next) => {
     result.picks = allPicks;
     console.log('allPicks', allPicks);
     await result.save();
-    res.redirect('/api/dashboard');
+    res.redirect('/dashboard');
   } catch (error) {
     console.log(error);
   }

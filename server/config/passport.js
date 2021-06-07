@@ -1,8 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-
-
 const User = require('../api/user/userModel');
 
 module.exports = function(passport) {
@@ -20,11 +17,11 @@ module.exports = function(passport) {
             if (isMatch) {
               return done(null, user);
             } else {
-              return done(null, false, { message: 'password incorrect' })
+              return done(null, false, { message: 'password incorrect' });
             }
           });
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     })
   );
 
@@ -38,4 +35,4 @@ module.exports = function(passport) {
       done(err, user);
     });
   });
-}
+};

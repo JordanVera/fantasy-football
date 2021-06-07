@@ -8,7 +8,7 @@ const _ = require('lodash');
 
 const User = require('../user/userModel');
 const gamesScores = require('../gameScores/getScores.js');
-const { getAvailableWeeks } = require('../dates/dates.js');
+const { getAvailableWeeks } = require('../dates/dates');
 
 exports.dashboard = async (req, res) => {
   const { user } = req;

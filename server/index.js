@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const api = require('./api/api');
 
-app.use('/api', api);
+app.use(api);
 
 app.get('/', (req, res) => {
   const { user } = req;

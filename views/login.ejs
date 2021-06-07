@@ -8,7 +8,7 @@
       <div class="card-body">
         <%- include('partials/messages'); %>
         <p class="text-warning" style="size: 12px">***Please note that password AND email fields are case sensitive.***</p>
-        <form action="/api/users/login" method="POST">
+        <form action="/users/login" method="POST">
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -31,7 +31,7 @@
           </div>
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
-        <p class="links pt-4">No Account? <a style="font-size: 17px;" href="/api/users/register">Register</a></p>
+        <p class="links pt-4">No Account? <a style="font-size: 17px;" href="/users/register">Register</a></p>
       </div>
     </div>
   </div>

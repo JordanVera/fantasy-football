@@ -11,7 +11,7 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/api/users/register">Register</a>
+            <a class="nav-link" href="/users/register">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="mailto:nfllastlonger@protonmail.com">Contact Us</a>
@@ -26,10 +26,11 @@
       <% } %>
       <div class="d-flex ml-auto">
         <% if(typeof user === 'undefined') { %>
-          <a class="btn btn-primary" href="/api/users/login">Login</a>
+          <a class="btn btn-primary" href="/users/login">Login</a>
         <% } else { %>
+          <a style="width: 130px;" class="btn" data-toggle="modal" data-target="#updateUserModal"><i class="mr-1 fas fa-cog"></i>Settings</a>
           <a class="mr-2 btn btn-primary glow-on-hover" data-toggle="modal" data-target="#bulletsModal">Buy Bullets</a>
-          <a class="btn btn-secondary" href="/api/users/logout">Logout</a>
+          <a class="btn btn-secondary" href="/users/logout">Logout</a>
         <% } %>
       </div>
     </div>

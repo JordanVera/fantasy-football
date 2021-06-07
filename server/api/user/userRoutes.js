@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 
@@ -30,5 +31,14 @@ router.route('/logout')
 
 router.route('/makePicks/:week')
   .post(makePicksLimiter, controller.makePicks);
+
+router.route('/updateUserEmail')
+  .post(controller.updateUserEmail);
+
+router.route('/updateUserPassword')
+  .post(controller.updateUserPassword);
+
+router.route('/deleteUser')
+  .post(controller.deleteUser);
 
 module.exports = router;

@@ -57,16 +57,7 @@ function bulletsRepo() {
     });
   }
 
-  async function buyBullet(req, res, next) {
-    const customerId = await createCustomer({ // Create a customer in the Coinqvest API
-      customer: {
-        email: req.user.email
-      }
-    });
-
-    console.log(`customer id = ${customerId}`);
-
-
+  function buyBullet(req, res, next) {
     // this object get passed to Coinqvest API
     const chargeObj = {
       charge: {
@@ -78,9 +69,9 @@ function bulletsRepo() {
           quantity: req.body.bulletCount
         }],
       },
-      webhook: `${process.env.WEBHOOK}/api/bullets/hook`,
+      webhook: `${process.env.WEBHOOK}/bullets/hook`,
       links: {
-        returnUrl: `${process.env.WEBHOOK}/api/dashboard`
+        returnUrl: `${process.env.WEBHOOK}/dashboard`
       },
       pageSettings: {
         displaySellerInfo: false,

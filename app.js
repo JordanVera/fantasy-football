@@ -29,7 +29,7 @@ require('./server/config/passport')(passport);
 // DB Config
 const db = process.env.MongoURI;
 
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true })
   .then(() => console.log(chalk.yellowBright('MONGODB Connected')))
   .catch(err => console.log(err));
 
