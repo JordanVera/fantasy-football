@@ -3,7 +3,13 @@
 'KC', 'LAC', 'LAR', 'LV', 'MIA', 'MIN', 'NE', 'NO', 'NYG','NYJ', 'PHI', 'PIT', 'SEA', 'SF', 'TB', 'TEN', 'WAS' ] %>
 
 <% const today = new Date() %>
-<% const test =  new Date('March 23, 2021') %>
+<% const test = new Date('March 23, 2021') %>
+
+<script>
+  window.user = '<%= user.name %>';
+  window.userBullets = <%= user.bullets %>;
+</script>
+
 <div class="container">
 <div class="col-md-8 m-auto">
   <ul class="main-nav nav justify-content-center mt-5 mb-5">
@@ -329,109 +335,8 @@
             <% }); %>
           </div>
 
-          <script>
-            const forms = document.querySelectorAll('#exampleModal form');
-            const user = '<%= user.name %>';
+          <script src="/js/script.js"></script>
 
-            let userRows = document.querySelectorAll(`table tr[id*="${user}"]`);
-            userRows = Array.from(userRows).map(row => {
-              return Array.from(row.children).slice(1).map(cell => cell.innerHTML.trim()) // .filter(cell => cell)
-            })
-
-            console.log('userRows', userRows)
-
-            // const removedWeeks = forms.length;
-            const removedWeeks = userRows[0].length - forms.length;
-            console.log({
-              removedWeeks
-            })
-
-            // Form index is actually the  week index
-            forms.forEach((form, formIndex) => {
-
-              form.addEventListener('submit', e => {
-                formIndex += removedWeeks;
-
-                let valid = true;
-                const errors = [];
-                let errorMsg;
-
-                const formGroups = form.querySelectorAll('.form-group');
-                const removedGroups = userRows.length - formGroups.length;
-                console.log({
-                  removedGroups
-                })
-
-                form.querySelectorAll('.form-group').forEach((group, rowIndex) => {
-                  const selection = group.querySelector('select').value;
-                  console.log('selection for', rowIndex, selection)
-                  // ARI -> rowIndex
-                  // Gets the cells of the rest of the weeks (remove this one by comparing the index)
-                  const row = userRows[rowIndex].filter((c, index) => index !== formIndex);
-                  console.log('row', row);
-
-                  if (row.includes(selection)) {
-                    valid = false;
-                    errorMsg = `Selection ${selection} found in row number ${rowIndex + 1}`
-                    errors.push(errorMsg)
-                    // throw error
-                  }
-                });
-
-                console.log({
-                  valid,
-
-                })
-
-                if (valid) return;
-
-                e.preventDefault();
-                console.log('errors', errors)
-
-                swal('You cannot pick the same team more than once:',
-                  `${errors.join('\n')}`
-                );
-              })
-            });
-          </script>
-
-
-          <script>
-            const userBullets = < %= user.bullets % > ;
-            const eventsFired = localStorage.getItem('fired');
-            const triggerOneTimeBuyInAlert = () => {
-              document.addEventListener('DOMContentLoaded', (event) => {
-                swal({
-                  title: ' ',
-                  text: 'Thank you for participating in nfllastlonger.com.  Good Luck!!!',
-                  className: 'oneTimeAlert'
-                });
-              });
-            }
-
-            if (eventsFired != '1' && userBullets > 0) {
-              triggerOneTimeBuyInAlert();
-              localStorage.setItem('fired', '1');
-            }
-          </script>
-
-          <script>
-            // Toggle between active and all bullets
-            window.addEventListener('load', function () {
-              const $radioButtons = $('[name="active-bullets"]');
-
-              $radioButtons.on('change', function () {
-                const onlyActive = $(this).val() === 'active-bullets';
-                toggleRows(!onlyActive);
-              })
-
-              function toggleRows(hideNonActive) {
-                $('table .bullet-loss').parent('tr').toggle(hideNonActive);
-              }
-
-              $radioButtons.eq(0).prop('checked', 'checked');
-            })
-          </script>
         </div>
       </div>
     </div>
