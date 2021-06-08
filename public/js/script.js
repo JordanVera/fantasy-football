@@ -1,114 +1,119 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable no-underscore-dangle */
 const Program = {
-  init () {
+  messages: {
+    repeatedPick: 'You cannot pick the same team more than once:',
+    succesfulBuyIn: 'Thank you for participating in nfllastlonger.com.  Good Luck!!!'
+  },
+
+  init() {
+    this.events();
     this.weeklyPicksValidation();
     this.triggerBuyAlert();
-    this.toggleActiveBullets();
+  },
+
+  events() {
+    window.addEventListener('load', this.toggleActiveBullets);
   },
 
   weeklyPicksValidation() {
-    const forms = document.querySelectorAll("#exampleModal form");
-    
-    let userRows = document.querySelectorAll(`table tr[id*="${window.user}"]`);
-    userRows = Array.from(userRows).map(
-      (row) => Array.from(row.children)
-        .slice(1)
-        .map((cell) => cell.innerHTML.trim())
+    const forms = document.querySelectorAll('#weekly-picks-modal form'); // Get all forms from weekly picks modal (there is 1 for each week)
+    const _userRows = document.querySelectorAll(`table tr[id*="${window.user}"]`); // Get all user rows; remove first colummn
+    const userRows = Array.from(_userRows).map(
+      (row) =>
+        // Convert HTML collection into array
+        Array.from(row.children)
+        // Remove first element (first row cell)
+          .slice(1)
+        // Map each cell into simple trimmed text
+          .map((cell) => cell.innerHTML.trim())
     );
-    
-    console.log("userRows", userRows);
-    
+
+    console.log('userRows', userRows);
+
     // const removedWeeks = forms.length;
     const removedWeeks = userRows[0].length - forms.length;
 
     console.log({
       removedWeeks,
     });
-    
-    // Form index is actually the  week index
-    forms.forEach((form, formIndex) => {
-      form.addEventListener("submit", (e) => {
-        formIndex += removedWeeks;
-    
-        let valid = true;
-        const errors = [];
-        let errorMsg;
-    
-        const formGroups = form.querySelectorAll(".form-group");
-        const removedGroups = userRows.length - formGroups.length;
-        console.log({
-          removedGroups,
-        });
-    
-        form.querySelectorAll(".form-group").forEach((group, rowIndex) => {
-          const selection = group.querySelector("select").value;
-          console.log("selection for", rowIndex, selection);
-          // ARI -> rowIndex
-          // Gets the cells of the rest of the weeks (remove this one by comparing the index)
-          const row = userRows[rowIndex].filter((c, index) => index !== formIndex);
-          console.log("row", row);
-    
-          if (row.includes(selection)) {
-            valid = false;
-            errorMsg = `Selection ${selection} found in row number ${rowIndex + 1}`;
-            errors.push(errorMsg);
-            // throw error
-          }
-        });
-    
-        console.log({
-          valid,
-        });
-    
-        if (valid) return;
-    
-        e.preventDefault();
-        console.log("errors", errors);
-    
-        swal(
-          "You cannot pick the same team more than once:",
-          `${errors.join("\n")}`
-        );
-      });
+
+    forms.forEach((form, index) => {
+      form.addEventListener('submit', event => this.submitPicks(event, form, index + removedWeeks, userRows));
     });
   },
 
+  submitPicks (event, form, weekIndex, userRows) {
+    const errors = [];
+    const formGroups = form.querySelectorAll('.form-group');
+    const removedGroups = userRows.length - formGroups.length;
+    console.log({
+      removedGroups,
+    });
+
+    form.querySelectorAll('.form-group select').forEach((group, rowIndex) => {
+      const selection = group.value;
+      console.log('selection for', rowIndex, selection);
+
+      // Gets the cells of the rest of the weeks; remove this week cell by comparing the index
+      const row = userRows[rowIndex].filter((c, index) => index !== weekIndex);
+      console.log('row', row);
+
+      // Repeated selection
+      const repeatedSelection = row.includes(selection);
+
+      if (repeatedSelection) {
+        valid = false;
+        const errorMsg = `Selection ${selection} found in row number ${rowIndex + 1}`;
+        errors.push(errorMsg);
+      }
+    });
+
+    // Otherwise, prevent the form submit and show errors
+    if (errors.length) {
+      event.preventDefault();
+      console.log('errors', errors);
+
+      swal(
+        this.messages.repeatedPick,
+        `${errors.join('\n')}`
+      );
+    }
+  },
+
   triggerBuyAlert() {
-    const eventsFired = localStorage.getItem("fired");
+    const eventsFired = localStorage.getItem('fired');
+
+    if (eventsFired === '1' || !(window.userBullets > 0)) return;
+
     const triggerOneTimeBuyInAlert = () => {
-      document.addEventListener("DOMContentLoaded", (event) => {
+      document.addEventListener('DOMContentLoaded', (event) => {
         swal({
-          title: " ",
-          text: "Thank you for participating in nfllastlonger.com.  Good Luck!!!",
-          className: "oneTimeAlert",
+          title: ' ',
+          text: this.messages.succesfulBuyIn,
+          className: 'oneTimeAlert',
         });
       });
     };
 
-    if (eventsFired != "1" && window.userBullets > 0) {
-      triggerOneTimeBuyInAlert();
-      localStorage.setItem("fired", "1");
-    }
+    triggerOneTimeBuyInAlert();
+    localStorage.setItem('fired', '1');
   },
 
   toggleActiveBullets () {
+    function toggleRows(hideNonActive) {
+      $('table .bullet-loss').parent('tr').toggle(hideNonActive);
+    }
+
     // Toggle between active and all bullets
-    window.addEventListener("load", function () {
-      const $radioButtons = $('[name="active-bullets"]');
-    
-      $radioButtons.on("change", function () {
-        const onlyActive = $(this).val() === "active-bullets";
-        toggleRows(!onlyActive);
-      });
-    
-      function toggleRows(hideNonActive) {
-        $("table .bullet-loss").parent("tr").toggle(hideNonActive);
-      }
-    
-      $radioButtons.eq(0).prop("checked", "checked");
+    const $radioButtons = $('[name="active-bullets"]');
+    $radioButtons.eq(0).prop('checked', 'checked');
+
+    $radioButtons.on('change', function () {
+      const onlyActive = $(this).val() === 'active-bullets';
+      toggleRows(!onlyActive);
     });
   }
 };
 
 Program.init();
-
-

@@ -146,19 +146,13 @@ exports.updateUserEmail = async (req, res) => {
 
 exports.updateUserPassword = async (req, res) => {
   const { password, password2 } = req.body;
-  const errors = [];
-
   const userId = { _id: req.user._id };
 
   if (password !== password2) {
     req.flash('error_msg', 'Passwords do not match');
-  }
-
-  if (password.length < 6) {
+  } else if (password.length <= 6) {
     req.flash('error_msg', 'Password should be at least 6 characters');
-  }
-
-  if (errors.length == 0) {
+  } else if (password === password2 && password.length >= 6) {
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(password, salt, async (err, hash) => {
         const newPassword = { password: hash };
@@ -171,11 +165,10 @@ exports.updateUserPassword = async (req, res) => {
     }); 
 
     req.flash('success_msg', 'You have succesfully changed your password');
+  } else {
+    req.flash('error_msg', 'unidentified error, please try again');
   }
-
-  console.log('password', password);
-  console.log('password2', password2);
-
+  
   res.redirect('/dashboard');
 };
 
