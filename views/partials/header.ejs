@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="/"><h2 class="retro-glow">NFLLASTLONGER.COM</h2></a>
+      <a class="navbar-brand" href="/">NFLLASTLONGER.COM</a>
       <% if(typeof user === 'undefined') { %>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -19,6 +19,9 @@
         </ul>
       <% } else { %>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="mailto:nfllastlonger@protonmail.com">Contact Us</a>
           </li>

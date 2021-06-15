@@ -17,12 +17,10 @@ dotenv.config();
 
 const updateUserBullets = async (userId, quantity) => {
   const query = { customerId: userId };
-  const update = { bullets: quantity };
+  const mongooseUser = await User.findOne(query);
+  const update = { bullets: mongooseUser.bullets += parseInt(quantity, 10) };
 
-  const userX = await User.findOneAndUpdate(query, update, { new: true });
-
-  // console.log('quantity', quantity);
-  // console.log(chalk.blue('user'), userX);
+  await User.findOneAndUpdate(query, update, { new: true });
 };
 
 function bulletsRepo() {
@@ -39,7 +37,7 @@ function bulletsRepo() {
   }
 
   // This controller gets used in userController in postRegister controller
-  // when a user signs up it creates a customer in COIMQVEST apo
+  // when a user signs up it creates a customer in COIMQVEST api
   function createCustomer(customerObj) {
     return new Promise((resolve, reject) => {
       client.post('/customer',
@@ -58,12 +56,11 @@ function bulletsRepo() {
   }
 
   function buyBullet(req, res, next) {
-    // this object get passed to Coinqvest API
     const chargeObj = {
       charge: {
         customerId: req.user.customerId,
-        currency: 'USD', // specifies the billing currency
-        lineItems: [{ // a list of line items included in this charge
+        currency: 'USD',
+        lineItems: [{
           description: 'NFL Last Longer Entry',
           netAmount: process.env.BUYIN,
           quantity: req.body.bulletCount
@@ -77,19 +74,16 @@ function bulletsRepo() {
         displaySellerInfo: false,
         shopName: 'NFL Last Longer'
       },
-      settlementCurrency: 'USD' // specifies in which currency you want to settle
+      settlementCurrency: 'USD'
     };
 
     client.post('/checkout/hosted',
       chargeObj,
-      function (response) {
+      (response) => {
         console.log(response.status);
         console.log(response.data);
-        // console.log(`bullet count = ${req.body.bulletCount}`);
-        // console.log(`customer ID = ${req.user.customerId}`)
 
         if (response.status !== 200) {
-          // something went wrong, let's abort and debug by looking at our log file
           console.log('Could not create checkout.');
           return;
         }
@@ -104,28 +98,34 @@ function bulletsRepo() {
   }
 
   function hook(req, res, next) {
-    const { payload } = req.body.data.checkout;
-
-    console.log(req.body.eventType);
+    console.log(chalk.greenBright('COINQVEST WEBHOOK REQ.BODY'));
     console.log(req.body);
-    console.log(payload);
 
     switch (req.body.eventType) {
       case 'CHECKOUT_COMPLETED':
+        const { payload } = req.body.data.checkout;
         const { customerId } = payload.charge;
         const { quantity } = payload.charge.lineItems[0];
 
         updateUserBullets(customerId, quantity);
         break;
       case 'UNDERPAID_ACCEPTED':
-        const { customerIdX } = payload.charge;
-        const { quantityX } = payload.charge.lineItems[0];
+        const customerIdX = req.body.data.checkout.payload.charge.customerId;
+        const quantityX = req.body.data.checkout.payload.charge.lineItems[0].quantity;
 
         updateUserBullets(customerIdX, quantityX);
         break;
+      case 'REFUND_COMPLETED':
+        console.log(chalk.greenBright('REFUND_COMPLETED'));
+
+        break;
+      case 'CHECKOUT_UNDERPAID':
+        console.log(chalk.redBright('CHECKOUT_UNDERPAID'));
+
+        break;
     }
 
-    return res.status(200);
+    return res.sendStatus(200);
   }
 
   return { testAuth, createCustomer, buyBullet, hook };
