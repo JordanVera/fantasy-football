@@ -60,6 +60,10 @@ hr  {
   box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
 }
 
+.mainLogo {
+  height: 32px;
+}
+
 .masthead .btn {
   min-width: 200px;
   max-width:500px;
@@ -209,15 +213,6 @@ td.bullet-loss ~ td {
   margin-bottom: 0px;
 }
 
-.oneTimeAlert .swal-title{
-  content: url('../images/justinJefferson.gif');
-  height: 240px;
-}
-
-.swal-text {
-  text-align: left !important;
-}
-
 .crypto-logo-sm {
   height: 34px;
   width: 34px;
@@ -261,14 +256,24 @@ nav { color: #282828 !important; }
 
 /* SWAL Modal And Erros Styles */
 .swal-modal {
-  background: #232526;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #232526;
+  border: 1px solid #fff;
 }
 
 .swal-title, .swal-text {
   color: #fafafa;
 }
+
+.swal-text {
+  text-align: left !important;
+}
+
+.oneTimeAlert .swal-title{
+  margin: 12px auto;
+  content: url('../images/justinJefferson.gif');
+  height: 240px;
+}
+
 
 .circle {
   width: 60px;

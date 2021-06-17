@@ -5,24 +5,24 @@
 const moment = require('moment');
 
 const dates = [
-  moment('2021-05-14T22:40'), // WEEK 1 NFL (Thursday September 9th, 7:20pm CDT)
-  moment('2021-05-18T02:55'), // WEEK 2 NFL (Thursday September 16th, 7:20pm CDT)
-  moment('2021-05-18T02:55'), // WEEK 3 NFL (Thursday September 23rd, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 4 NFL (Thursday September 30th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 5 NFL (Thursday October 7th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 6 NFL (Thursday October 14th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 7 NFL (Thursday October 21st, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 8 NFL (Thursday October 28th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 9 NFL (Thursday November 4th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 10 NFL (Thursday November 11th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 11 NFL (Thursday November 18th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 12 NFL (Thursday November 25th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 13 NFL (Thursday December 2nd, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 14 NFL (Thursday December 9th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 15 NFL (Thursday December 16th, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 16 NFL (Thursday December 23rd, 7:20pm CDT)
-  moment('2021-05-20T02:55'), // WEEK 17 NFL (Sunday January 2nd, 12:00pm CDT)
-  moment('2021-05-20T02:55') // WEEK 18 NFL (Sunday January 9nd, 12:00pm CDT)
+  moment('2021-04-20T22:40'), // WEEK 1 NFL (Thursday September 9th, 7:20pm CDT)
+  moment('2021-06-12T02:55'), // WEEK 2 NFL (Thursday September 16th, 7:20pm CDT)
+  moment('2021-06-18T02:55'), // WEEK 3 NFL (Thursday September 23rd, 7:20pm CDT)
+  moment('2021-09-20T02:55'), // WEEK 4 NFL (Thursday September 30th, 7:20pm CDT)
+  moment('2021-10-20T02:55'), // WEEK 5 NFL (Thursday October 7th, 7:20pm CDT)
+  moment('2021-10-20T02:55'), // WEEK 6 NFL (Thursday October 14th, 7:20pm CDT)
+  moment('2021-10-20T02:55'), // WEEK 7 NFL (Thursday October 21st, 7:20pm CDT)
+  moment('2021-10-20T02:55'), // WEEK 8 NFL (Thursday October 28th, 7:20pm CDT)
+  moment('2021-11-20T02:55'), // WEEK 9 NFL (Thursday November 4th, 7:20pm CDT)
+  moment('2021-11-20T02:55'), // WEEK 10 NFL (Thursday November 11th, 7:20pm CDT)
+  moment('2021-11-20T02:55'), // WEEK 11 NFL (Thursday November 18th, 7:20pm CDT)
+  moment('2021-11-20T02:55'), // WEEK 12 NFL (Thursday November 25th, 7:20pm CDT)
+  moment('2021-12-20T02:55'), // WEEK 13 NFL (Thursday December 2nd, 7:20pm CDT)
+  moment('2021-12-20T02:55'), // WEEK 14 NFL (Thursday December 9th, 7:20pm CDT)
+  moment('2021-12-20T02:55'), // WEEK 15 NFL (Thursday December 16th, 7:20pm CDT)
+  moment('2021-12-20T02:55'), // WEEK 16 NFL (Thursday December 23rd, 7:20pm CDT)
+  moment('2022-01-20T02:55'), // WEEK 17 NFL (Sunday January 2nd, 12:00pm CDT)
+  moment('2022-01-20T02:55') // WEEK 18 NFL (Sunday January 9nd, 12:00pm CDT)
 ];
 
 const getAvailableWeeks = (all) => {
@@ -47,7 +47,7 @@ const getStartingWeek = () => {
   return startingWeek;
 };
 
-console.log('dates', dates);
+// console.log('dates', dates);
 console.log('getStartingWeek()', getStartingWeek());
 
 module.exports = {
