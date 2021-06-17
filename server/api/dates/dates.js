@@ -5,9 +5,9 @@
 const moment = require('moment');
 
 const dates = [
-  moment('2021-04-20T22:40'), // WEEK 1 NFL (Thursday September 9th, 7:20pm CDT)
-  moment('2021-06-12T02:55'), // WEEK 2 NFL (Thursday September 16th, 7:20pm CDT)
-  moment('2021-06-18T02:55'), // WEEK 3 NFL (Thursday September 23rd, 7:20pm CDT)
+  moment('2021-09-09T19:20'), // WEEK 1 NFL (Thursday September 9th, 7:20pm CDT)
+  moment('2021-09-12T02:55'), // WEEK 2 NFL (Thursday September 16th, 7:20pm CDT)
+  moment('2021-09-18T02:55'), // WEEK 3 NFL (Thursday September 23rd, 7:20pm CDT)
   moment('2021-09-20T02:55'), // WEEK 4 NFL (Thursday September 30th, 7:20pm CDT)
   moment('2021-10-20T02:55'), // WEEK 5 NFL (Thursday October 7th, 7:20pm CDT)
   moment('2021-10-20T02:55'), // WEEK 6 NFL (Thursday October 14th, 7:20pm CDT)
