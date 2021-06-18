@@ -34,7 +34,7 @@
   <div class="card card-body">
     <%- include('partials/messages'); %>
     <h3 class="text-center mb-3"><span class="capitalize"><%= user.name %>'s</span> Dashboard</h3>
-    <p>There is a total of <%= users.length %> users with <%= totalUserBullets %> bullets which makes the prize pool $<%= totalUserBullets * 100 %></p>
+    <p>There is a total of <%= users.length %> users with <%= totalUserBullets %> bullets which makes the prize pool $<%= totalUserBullets * 50 %></p>
     <p>The Date is now
       <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
       and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
@@ -122,7 +122,7 @@
     </div>
     <div class="modal-body">
       <ol>
-        <li>Participation in the last longer is $110 per entry.</li>
+        <li>Participation in the last longer is $60 per entry.</li>
         <li>The payout percentages are as follows - 80% to the winner and 20% to 2nd place.</li>
         <li>Pick the outright WINNER (no point spreads) for one NFL game each week.</li>
         <li>You must make a selection each week.</li>
