@@ -4,8 +4,9 @@
 /* eslint-disable comma-dangle */
 const moment = require('moment');
 
+// Dates are 1 hour ahead of central time, use eastern time.
 const dates = [
-  moment('2021-09-09T19:20'), // WEEK 1 NFL (Thursday September 9th, 7:20pm CDT)
+  moment('2021-06-24T23:16'), // WEEK 1 NFL (Thursday September 9th, 7:20pm CDT)
   moment('2021-09-12T02:55'), // WEEK 2 NFL (Thursday September 16th, 7:20pm CDT)
   moment('2021-09-18T02:55'), // WEEK 3 NFL (Thursday September 23rd, 7:20pm CDT)
   moment('2021-09-20T02:55'), // WEEK 4 NFL (Thursday September 30th, 7:20pm CDT)

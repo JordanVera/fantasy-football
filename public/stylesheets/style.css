@@ -50,6 +50,10 @@ hr  {
   min-width: 220px;
 }
 
+.mainLogo {
+  height: 70px !important;
+}
+
 .masthead {
   height: 100vh;
   min-height: 500px;

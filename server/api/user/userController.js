@@ -14,10 +14,9 @@ const _ = require('lodash');
 const chalk = require('chalk');
 const User = require('./userModel');
 const bulletRepo = require('../buyBullet/buyBulletController');
-const { getStartingWeek, getAvailableWeeks } = require('../dates/dates.js');
-const gamesScores = require('../gameScores/getScores.js');
+const { getStartingWeek } = require('../dates/dates.js');
 
-exports.getLogin = (req, res, next) => {
+exports.getLogin = (req, res) => {
   const { user } = req;
 
   res.render('login' , {
@@ -33,7 +32,7 @@ exports.postLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.getRegister = (req, res, next) => {
+exports.getRegister = (req, res) => {
   const { user } = req;
 
   res.render('register', {
@@ -116,7 +115,7 @@ exports.postRegister = (req, res) => {
               newUser.customerId = customerId;
               newUser.password = hash;
               newUser.save()
-                .then(user => {
+                .then(() => {
                   req.flash('success_msg', 'You are now registered and can log in');
                   res.redirect('/users/login');
                 })
@@ -128,7 +127,7 @@ exports.postRegister = (req, res) => {
   }
 };
 
-exports.getLogout = (req, res, next) => {
+exports.getLogout = (req, res) => {
   req.logout();
 
   req.flash('success_msg', 'You are logged out');
@@ -192,7 +191,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 // eslint-disable-next-line consistent-return
-exports.makePicks = async (req, res, next) => {
+exports.makePicks = async (req, res) => {
   const picks = req.body;
   const { week } = req.params;
 
