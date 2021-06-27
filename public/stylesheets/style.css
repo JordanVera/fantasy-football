@@ -50,11 +50,67 @@ hr  {
   min-width: 220px;
 }
 
+header {
+  position: relative;
+  background-color: black;
+  height: 75vh;
+  min-height: 25rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+header video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+  position: relative;
+  z-index: 2;
+}
+
+header .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.videoContainer {
+    position:relative;
+    padding-bottom:56.25%;
+    padding-top:30px;
+    height:0;
+    overflow:hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
 .mainLogo {
   height: 70px !important;
 }
 
-.masthead {
+/* .masthead {
   height: 100vh;
   min-height: 500px;
   background-image: url('../images/huddle.png');
@@ -62,7 +118,7 @@ hr  {
   background-position: center;
   background-repeat: no-repeat;
   box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
-}
+} */
 
 .mainLogo {
   height: 32px;
@@ -528,14 +584,33 @@ color:#eeeeee;
     margin-right: 12px;
   }
 
+  header {
+    height: 100vh;
+  }
+
+  .masthead {
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+
   .masthead h1 {
-    font-size: 32px;
+    font-size: 26px;
   }
 
   .masthead p {
     font-size: 18px;
   }
 
+}
+
+
+@media (pointer: coarse) and (hover: none) {
+  header {
+    background: url('../images/huddle.png') black no-repeat center center scroll;
+  }
+  header video {
+    display: none;
+  }
 }
 
 

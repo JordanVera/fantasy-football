@@ -43,7 +43,7 @@ const Program = {
     });
   },
 
-  submitPicks (event, form, weekIndex, userRows) {
+  submitPicks(event, form, weekIndex, userRows) {
     const errors = [];
     const formGroups = form.querySelectorAll('.form-group');
     const removedGroups = userRows.length - formGroups.length;

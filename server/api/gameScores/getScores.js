@@ -6,6 +6,7 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const { MongoClient } = require('mongodb');
 const chalk = require('chalk');
+const util = require('util');
 
 dotenv.config();
 
@@ -32,7 +33,8 @@ function getSchedule() {
         axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/14?key=${process.env.API_KEY}`),
         axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/15?key=${process.env.API_KEY}`),
         axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/16?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/17?key=${process.env.API_KEY}`)
+        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/17?key=${process.env.API_KEY}`),
+        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/18?key=${process.env.API_KEY}`),
       ])
       .then((responseArr) => {
         const winners = {
@@ -77,12 +79,14 @@ function getSchedule() {
           week18: []
         };
 
-        for (let i = 0; i < 17; i++) {
+        for (let i = 0; i < 18; i++) {
           const weekN = `week${i + 1}`;
           const winnerWeek = winners[weekN];
           const loserWeek = losers[weekN];
 
           responseArr[i].data.forEach((element) => {
+            console.log(element);
+
             if (element.AwayScore > element.HomeScore) {
               // console.log(chalk.red('Away team won'));
               winnerWeek.push(element.AwayTeam);
@@ -99,8 +103,8 @@ function getSchedule() {
           });
         }
 
-        // console.log(util.inspect(winners, { showHidden: false, depth: null }));
-        // console.log(util.inspect(losers, { showHidden: false, depth: null }));
+        console.log(util.inspect(winners, { showHidden: false, depth: null }));
+        console.log(util.inspect(losers, { showHidden: false, depth: null }));
 
         async function seedDbWinners() {
           const client = new MongoClient(process.env.MongoURI);
@@ -118,13 +122,15 @@ function getSchedule() {
           client.close();
         }
 
-        // seedDbWinners();
-        // seedDbLosers();
+        seedDbWinners();
+        seedDbLosers();
 
         resolve({ winners, losers });
       })
       .catch((err) => console.log(err));
   });
 }
+
+getSchedule();
 
 module.exports = getSchedule;
