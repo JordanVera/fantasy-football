@@ -603,7 +603,7 @@ color:#eeeeee;
 
 }
 
-
+/* 
 @media (pointer: coarse) and (hover: none) {
   header {
     background: url('../images/huddle.png') black no-repeat center center scroll;
@@ -611,7 +611,7 @@ color:#eeeeee;
   header video {
     display: none;
   }
-}
+} */
 
 
 
