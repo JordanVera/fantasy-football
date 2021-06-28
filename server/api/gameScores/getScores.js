@@ -12,6 +12,48 @@ dotenv.config();
 
 const scoresRepo = require('./scoresController.js');
 
+const winners = {
+  week1: [],
+  week2: [],
+  week3: [],
+  week4: [],
+  week5: [],
+  week6: [],
+  week7: [],
+  week8: [],
+  week9: [],
+  week10: [],
+  week11: [],
+  week12: [],
+  week13: [],
+  week14: [],
+  week15: [],
+  week16: [],
+  week17: [],
+  week18: []
+};
+
+const losers = {
+  week1: [],
+  week2: [],
+  week3: [],
+  week4: [],
+  week5: [],
+  week6: [],
+  week7: [],
+  week8: [],
+  week9: [],
+  week10: [],
+  week11: [],
+  week12: [],
+  week13: [],
+  week14: [],
+  week15: [],
+  week16: [],
+  week17: [],
+  week18: []
+};
+
 function getSchedule() {
   // eslint-disable-next-line no-unused-vars
   return new Promise((resolve, reject) => {
@@ -37,48 +79,6 @@ function getSchedule() {
         axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/18?key=${process.env.API_KEY}`),
       ])
       .then((responseArr) => {
-        const winners = {
-          week1: [],
-          week2: [],
-          week3: [],
-          week4: [],
-          week5: [],
-          week6: [],
-          week7: [],
-          week8: [],
-          week9: [],
-          week10: [],
-          week11: [],
-          week12: [],
-          week13: [],
-          week14: [],
-          week15: [],
-          week16: [],
-          week17: [],
-          week18: []
-        };
-
-        const losers = {
-          week1: [],
-          week2: [],
-          week3: [],
-          week4: [],
-          week5: [],
-          week6: [],
-          week7: [],
-          week8: [],
-          week9: [],
-          week10: [],
-          week11: [],
-          week12: [],
-          week13: [],
-          week14: [],
-          week15: [],
-          week16: [],
-          week17: [],
-          week18: []
-        };
-
         for (let i = 0; i < 18; i++) {
           const weekN = `week${i + 1}`;
           const winnerWeek = winners[weekN];
@@ -122,8 +122,8 @@ function getSchedule() {
           client.close();
         }
 
-        seedDbWinners();
-        seedDbLosers();
+        // seedDbWinners();
+        // seedDbLosers();
 
         resolve({ winners, losers });
       })
@@ -131,6 +131,16 @@ function getSchedule() {
   });
 }
 
-getSchedule();
+function getWinnnersLosers() {
+  return {
+    winners,
+    losers
+  };
+}
 
-module.exports = getSchedule;
+// getSchedule();
+
+module.exports = {
+  getSchedule,
+  getWinnnersLosers
+};

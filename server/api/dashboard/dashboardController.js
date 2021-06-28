@@ -7,20 +7,26 @@
 const _ = require('lodash');
 
 const User = require('../user/userModel');
-const gamesScores = require('../gameScores/getScores.js');
+const {
+  getSchedule,
+  getWinnnersLosers
+} = require('../gameScores/getScores.js');
 const { getAvailableWeeks } = require('../dates/dates');
 
+
 exports.dashboard = async (req, res) => {
+  // await getSchedule();
+
   const { user } = req;
   const users = await User.find({ bullets: { $gt: 0 } });
-  const { losers } = await gamesScores();
+  const { losers } = await getWinnnersLosers();
   const bullets = {};
   const bulletsArr = [];
   const picks = [];
 
   const weeks = getAvailableWeeks(true);
 
-  // console.log('Losers:', losers);
+  console.log('Losers:', losers);
 
   users.forEach((user) => {
     picks.push(user.picks);

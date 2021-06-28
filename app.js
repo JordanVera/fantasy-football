@@ -18,6 +18,7 @@ const hpp = require('hpp');
 const passport = require('passport');
 const dotenv = require('dotenv');
 const { rangeRight } = require('lodash');
+const { getSchedule } = require('./server/api/gameScores/getScores.js');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -30,7 +31,10 @@ require('./server/config/passport')(passport);
 const db = process.env.MongoURI;
 
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true })
-  .then(() => console.log(chalk.yellowBright('MONGODB Connected')))
+  .then(() => {
+    console.log(chalk.yellowBright('MONGODB Connected'));
+    // getSchedule();
+  })
   .catch(err => console.log(err));
 
 if (process.env.NODE_ENV === 'production') {
