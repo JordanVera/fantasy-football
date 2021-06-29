@@ -154,8 +154,9 @@ header .overlay {
 }
 
 .signUp {
-  background: url(../images/signUpBanner.jpg) center / cover no-repeat;
+  background: url(../images/billsStadium.jpg) center / cover no-repeat;
   box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.45);
+  margin-top: 122px;
   padding-bottom: 24px;
 }
 
@@ -198,6 +199,22 @@ box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.45);
 
 .card-header h3{
 color: white;
+}
+
+.signUpCard, .makePicksCard, .advanceCard {
+  box-shadow:inset 0 0 0 2000px rgba(253, 126, 20, 0.10);
+}
+
+.signUpCard {
+  background: url(../images/football-3-356x179.jpg) center / cover no-repeat !important;
+}
+
+.makePicksCard {
+  background: url(../images/football-2-356x179.jpg) center / cover no-repeat !important;
+}
+
+.advanceCard {
+  background: url(../images/football-1-356x179.jpg) center / cover no-repeat !important;
 }
 
 .input-group-prepend span{
@@ -359,7 +376,6 @@ nav { color: #282828 !important; }
   font-size: 18px;
   font-weight: 500;
 }
-
 
 /* Text */
 .glow-on-hover {
@@ -536,7 +552,6 @@ transform: translateY(5px);
 
 #footer {
   background: #282828 !important;
-  margin-top: 60vh;
 }
 
 #footer a {
