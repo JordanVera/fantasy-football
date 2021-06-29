@@ -306,6 +306,15 @@ td.bullet-loss ~ td {
   color: green
 }
 
+.logoBig{
+  padding: 24px;
+}
+
+.navbar-brand img {
+  height: 82px;
+  margin: 12px 6px;
+}
+
 .main-nav {
   padding-top: 50px;
 }

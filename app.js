@@ -17,8 +17,6 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const passport = require('passport');
 const dotenv = require('dotenv');
-const { rangeRight } = require('lodash');
-const { getSchedule } = require('./server/api/gameScores/getScores.js');
 
 const port = process.env.PORT || 3000;
 const app = express();
