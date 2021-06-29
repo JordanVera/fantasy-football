@@ -4,6 +4,7 @@
 body {
   padding-top: 0px !important;
   font: 14px 'Roboto', sans-serif;
+  margin-top: 102px;
 }
 
 h1,
@@ -257,10 +258,6 @@ color: white;
   color: #7289da;
 }
 
-#weekly-picks-modal #footer {
-  display: none;
-}
-
 .links a{
 margin-left: 4px;
 }
@@ -311,8 +308,8 @@ td.bullet-loss ~ td {
 }
 
 .navbar-brand img {
-  height: 82px;
-  margin: 12px 6px;
+  height: 62px;
+  margin: 6px;
 }
 
 .main-nav {
@@ -323,7 +320,9 @@ td.bullet-loss ~ td {
   font-size: 17px;
 }
 
-nav { color: #282828 !important; }
+nav { 
+  color: #282828 !important; 
+}
 
 .gif, 
 .embed {
@@ -557,48 +556,94 @@ box-shadow: 0 0 #005de0;
 transform: translateY(5px);
 }
 
-
-
-#footer {
-  background: #282828 !important;
+.site-footer
+{
+  background-color:#26272b;
+  padding:45px 0 20px;
+  font-size:15px;
+  line-height:24px;
+  color:#737373;
+}
+.site-footer hr
+{
+  border-top-color:#bbb;
+  opacity:0.5
+}
+.site-footer hr.small
+{
+  margin:20px 0
+}
+.site-footer h6
+{
+  color:#fff;
+  font-size:16px;
+  text-transform:uppercase;
+  margin-top:5px;
+  letter-spacing:2px
 }
 
-#footer a {
-  color: #ffffff;
-  text-decoration: none !important;
-  background-color: transparent;
-  -webkit-text-decoration-skip: objects;
+.footer-links
+{
+  padding-left:0;
+  list-style:none
 }
-#footer ul.social li{
-padding: 3px 0;
+.footer-links li
+{
+  display:block
 }
-#footer ul.social li a i {
-  margin-right: 5px;
-font-size:25px;
--webkit-transition: .5s all ease;
--moz-transition: .5s all ease;
-transition: .5s all ease;
+.footer-links a
+{
+  color:#737373
 }
-
-#footer ul.social li:hover a i {
-font-size:30px;
-margin-top:-10px;
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
 }
-
-#footer ul.social li a,
-#footer ul.quick-links li a{
-color:#ffffff;
+.footer-links.inline li
+{
+  display:inline-block
 }
-#footer ul.social li a:hover{
-color:#eeeeee;
+.site-footer .social-icons
+{
+  text-align:right
+}
+.site-footer .social-icons a
+{
+  width:40px;
+  height:40px;
+  line-height:40px;
+  margin-left:6px;
+  margin-right:0;
+  border-radius:100%;
+  background-color:#33353d
+}
+.copyright-text
+{
+  margin:0
+}
+@media (max-width:991px)
+{
+  .site-footer [class^=col-]
+  {
+    margin-bottom:30px
+  }
+}
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
 }
 
 @media (max-width:767px){
-  #footer h5 {
-    padding-left: 0;
-    border-left: transparent;
-    padding-bottom: 0px;
-    margin-bottom: 10px;
+  body {
+    margin-top: 52px;
   }
 
   .crypto-logo, .crypto-logo-sm {
