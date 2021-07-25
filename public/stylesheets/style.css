@@ -35,6 +35,16 @@ body {
 	border: none;
 }
 
+.navbar .nav-link {
+  padding: 12px 0;
+  text-align: left;
+}
+
+.nav-link {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
 .line{
 	width: 100%;
 	height: 1px;
