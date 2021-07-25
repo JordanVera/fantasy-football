@@ -692,14 +692,15 @@ transform: translateY(5px);
     margin-top: -50px;
     padding-top: 50px;
     margin-left: -250px;
-  }
-
-  .site-footer {
-    padding-bottom:0
+    background-color: var(--chat-color-background);
   }
   
   #sidebar.active{
     margin-left: 0;
+  }
+
+  .site-footer {
+    padding-bottom:0
   }
   
   .site-footer .copyright-text,.site-footer .social-icons {
@@ -720,6 +721,12 @@ transform: translateY(5px);
   transition: all 0.3s ease;
 }
 
+.chatRules p {
+  padding: 1rem;
+  font-size: .8rem;
+  margin-bottom: 0;
+}
+
 .header {
   flex: 0 0 5%;
   border-bottom: 1px solid var(--chat-color-alt);
@@ -738,7 +745,7 @@ transform: translateY(5px);
 }
 
 .messages {
-  flex: 0 0 68%;
+  flex: 0 0 63%;
   padding: 1rem;
   overflow-y: scroll;
 }
