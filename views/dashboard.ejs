@@ -8,334 +8,272 @@
 <script>
   window.user = '<%= user.name %>';
   window.userBullets = <%= user.bullets %>;
+
+  (() => {
+    window.addEventListener('load', () => {
+      Chat.init('<%= user.name %>');
+    });
+  })();
 </script>
 
-<div class="container">
-<div class="col-md-8 m-auto">
-  <ul class="main-nav nav justify-content-center mt-5 mb-5">
-    <li class="nav-item">
-      <button type="button" class="btn btn-primary glow-on-hover" data-toggle="modal" data-target="#weekly-picks-modal">
-        <a><i class="fas fa-football-ball"></i> Make Your Picks</a>
+<div class="wrapper">
+  <nav id="sidebar">
+  <div class="chat">
+    <div class="header">
+      <p>Live Chat</p>
+      <button id="sidebarCollapse2" class="btn" style="margin-bottom: 16px;">
+        <i class="fas fa-times"></i>
       </button>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="modal" data-target="#rulesModal">Rules</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="https://www.nfl.com/schedules/" target="_blank">Schedule</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link discordLink" href="#"><i class="fab fa-discord"></i> Discord Server</a>
-    </li>
-  </ul>
-</div>
-
-<div class="col-md-6 m-auto">
-  <div class="card card-body">
-    <%- include('partials/messages'); %>
-    <h3 class="text-center mb-3"><span class="capitalize"><%= user.name %>'s</span> Dashboard</h3>
-    <p>There is a total of <%= users.length %> users with <%= totalUserBullets %> bullets which makes the prize pool $<%= totalUserBullets * 50 %></p>
-    <p>The Date is now
-      <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
-      and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
-    <p style="font-weight: 600;">Please make sure to read the rules!</p>
-    <p class="text-warning" style="size: 12px">***Please note you must make your pick on Thursday before 5pm CST (6pm EST) for every bullet.  <strong>Even if you are not picking the thursday game.</strong>***</p>  
-    <div class="m-auto btn-list">
-      <a style="width: 130px;" class="btn btn-primary glow-on-hover" data-toggle="modal" data-target="#bulletsModal">Buy Bullets</a> <a class="ml-2 btn btn-secondary" href="/users/logout">Logout</a>
     </div>
-  </div>
-</div>
-
-<div class="table-responsive mt-5">
-  <div class="center-container">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="active-bullets" id="exampleRadios1" value="all-bullets" checked>
-      <label class="form-check-label" for="exampleRadios1">
-        Show All Bullets
-      </label>
-      <input class="form-check-input" type="radio" name="active-bullets" id="exampleRadios2" value="active-bullets">
-      <label class="form-check-label" for="exampleRadios2">
-        Show Active Bullets
-      </label>
+    <div class="messages scroll-style"></div>
+    <div class="actions">
+      <form action="#" class="actions-form">
+        <textarea class="input-message" placeholder="Send a message"></textarea>
+      </form>
+      <button class="actions-sendMessage form-button">
+        Chat
+      </button>
     </div>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Player</th>
-        <th scope="col">Week &nbsp;1</th>
-        <th scope="col">Week &nbsp;2</th>
-        <th scope="col">Week &nbsp;3</th>
-        <th scope="col">Week &nbsp;4</th>
-        <th scope="col">Week &nbsp;5</th>
-        <th scope="col">Week &nbsp;6</th>
-        <th scope="col">Week &nbsp;7</th>
-        <th scope="col">Week &nbsp;8</th>
-        <th scope="col">Week &nbsp;9</th>
-        <th scope="col">Week 10</th>
-        <th scope="col">Week 11</th>
-        <th scope="col">Week 12</th>
-        <th scope="col">Week 13</th>
-        <th scope="col">Week 14</th>
-        <th scope="col">Week 15</th>
-        <th scope="col">Week 16</th>
-        <th scope="col">Week 17</th>
-        <th scope="col">Week 18</th>
-      </tr>
-    </thead>
-    <tbody>
-    <%# this code creates a row for ever users bullet instance  %>
-      <% users.forEach(function(user){ %>
-        <% for(let i = 0; i < user.bullets; i++){ %>
-          <tr id="<%= `${user.name}-${i}` %>">
+  </nav>
+
+  <div class="container">
+    <div class="col-md-8 m-auto">
+      <ul class="main-nav nav justify-content-center mt-5 mb-5">
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary glow-on-hover" data-toggle="modal"
+            data-target="#weekly-picks-modal">
+            <a><i class="fas fa-football-ball"></i> Make Your Picks</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#rulesModal">Rules</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.nfl.com/schedules/" target="_blank">Schedule</a>
+        </li>
+        <li>
+          <a id="sidebarCollapse" class="nav-link">Live Chat</a>
+        </li>
+      </ul>
+    </div>
+
+
+
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <%- include('partials/messages'); %>
+        <h3 class="text-center mb-3"><span class="capitalize"><%= user.name %>'s</span> Dashboard</h3>
+        <p>There is a total of <%= users.length %> users with <%= totalUserBullets %> entries which makes the prize pool
+          $<%= totalUserBullets * 50 %></p>
+        <p>The Date is now
+          <b><%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></b>
+          and the time is now <b><%= new Date().toLocaleTimeString() %></b></p>
+        <p style="font-weight: 600;">Please make sure to read the rules!</p>
+        <p class="text-warning">***Please note you must make your pick on Thursday before 5pm CST
+          (6pm EST) for every bullet. <strong>Even if you are not picking the thursday game.</strong>***</p>
+        <div class="m-auto btn-list">
+          <a style="width: 130px;" class="btn btn-primary glow-on-hover" data-toggle="modal"
+            data-target="#bulletsModal">Buy Entries</a> <a class="ml-2 btn btn-secondary"
+            href="/users/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive mt-5">
+      <div class="center-container">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="active-bullets" id="exampleRadios1" value="all-bullets"
+            checked>
+          <label class="form-check-label" for="exampleRadios1">
+            Show All Entries
+          </label>
+          <input class="form-check-input" type="radio" name="active-bullets" id="exampleRadios2" value="active-bullets">
+          <label class="form-check-label" for="exampleRadios2">
+            Show Active Entries
+          </label>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Player</th>
+            <th scope="col">Week &nbsp;1</th>
+            <th scope="col">Week &nbsp;2</th>
+            <th scope="col">Week &nbsp;3</th>
+            <th scope="col">Week &nbsp;4</th>
+            <th scope="col">Week &nbsp;5</th>
+            <th scope="col">Week &nbsp;6</th>
+            <th scope="col">Week &nbsp;7</th>
+            <th scope="col">Week &nbsp;8</th>
+            <th scope="col">Week &nbsp;9</th>
+            <th scope="col">Week 10</th>
+            <th scope="col">Week 11</th>
+            <th scope="col">Week 12</th>
+            <th scope="col">Week 13</th>
+            <th scope="col">Week 14</th>
+            <th scope="col">Week 15</th>
+            <th scope="col">Week 16</th>
+            <th scope="col">Week 17</th>
+            <th scope="col">Week 18</th>
+            <th scope="col">Week 19</th>
+            <th scope="col">Week 20</th>
+            <th scope="col">Week 21</th>
+            <th scope="col">Week 22</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%# this code creates a row for ever users bullet instance  %>
+          <% users.forEach(function(user){ %>
+          <% for(let i = 0; i < user.bullets; i++){ %>
+          <tr class="<%= `${user.name}-${i}` %>">
             <th><%= `${user.name} (${i + 1})` %></th>
-            <% for(let week = 0; week < 18; week++){
+            <% for(let week = 0; week < 22; week++){
               const bullet = (bullets[`${user.name}-${i}`] || {});
               const pick = bullet[week];
               const className = bullet.missingWeek === week
                 ? 'bullet-loss'
                 : '';
             %>
-              <td class="<%= className %>">
-                <%= pick %>
-              </td>
+            <td class="<%= className %>">
+              <%= pick %>
+            </td>
             <% } %>
           </tr>
-        <% }; %>
-      <% }); %>
-    </tbody>
-  </table>
-</div>
-
-<%- include('partials/footer'); %>
-
-<!-- Rules Modal -->
-<div class="modal fade" id="rulesModal" tabindex="-1" role="dialog" aria-labelledby="rulesModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="rulesModalLabel">Rules</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <ol>
-        <li>Participation in the last longer is $60 per entry.</li>
-        <li>The payout percentages are as follows - 80% to the winner and 20% to 2nd place.</li>
-        <li>Pick the outright WINNER (no point spreads) for one NFL game each week.</li>
-        <li>You must make a selection each week.</li>
-        <li>A team may only be selected once during the regular season (for example, if you pick the Chiefs in week 1, you may not select the Chiefs again for the remainder of the regular season). Slates are wiped clean for the playoffs. If the pool continues into the playoffs, you can use each team one more time.</li>
-        <li>You continue in the pool until a loss (or tie) is suffered, then you're out. YES, TIES ARE LOSSES!</li>
-        <li>PICKS MUST BE SUBMITTED BY 5PM PT THURSDAYS (This is REGARDLESS of whether you are picking the Thursday game or not). There is a Thursday night game just about every week this season. Any pick not submitted by the deadline will be considered a loss and the contestant will be eliminated from the pool. It is possible (and recommended) to submit picks for future weeks. HINT: Visit the site early in the week, or the previous week, and make your pick. Then come back later and change it if necessary. This way, if your internet service is down on Thursday, at least you have still submitted a pick.</li>
-        <li>At about Week15 or Week16, the NFL stops having Thursday games. The actual week changes from season to season. At that time the pick deadline will change to Friday evening at 8:00pm PT (11:00pm ET) for the rest of the season, and during the Playoffs.</li>
-        <li>You must double-check that your picks have been recorded on the website properly AFTER you have submitted your pickss from your cell phone, tablet or computer.</li>
-        <li>Your official picks are the picks displayed in the table with your screenname next to them.</li>
-        <li>The game will continue until one contestant remains. However, via mutual consent, the pool may end at any time, with the prize split among the remaining participants. If a partial split is unanimously agreed to, the remaining pot is then, by default, 100% to the winner, unless prior, unanimous consent is reached.</li>
-        <li>If all remaining contestants are eliminated in the same week, the contest is over, and the contestants that were eliminated in that week are ALL declared winners and will split the prize. However, the contest could be continued by unanimous consent of the 'winners' and NFLSurvivor Administration.</li>
-        <li>If the regular season ends with no outright winner, AND there has been no previous split, the pot will be cut in half. Half will be evenly distributed among the remaining players, and the other half will become the new, winner-take-all, pot that will be played for in the playoffs. Team restrictions will be wiped clean and re-started for the remaining participants.</li>
-        <li>If the contest continues into the playoffs, and advances to the Superbowl, and a player no longer has any valid picks left to pick, because he has previously used both of the teams that are playing in the Superbowl, that player is considered to have finished better than a player who lost in the previous round, but worse than a player who picks the losing team in the Superbowl.</li>
-        <li>There might arise situations that are not spelled out specifically in these rules. In those cases, I will make my decisions as fairly as possible, taking into account the general principles of the pool, as well as the specific details of each case. My decisions are final.</li>
-        <li>All prizes will be sent out upon completion of the pool, winners are paid in CRYPTOCURRENCY. Please allow 2-4 weeks for delivery.</li>
-      </ol> 
+          <% }; %>
+          <% }); %>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
-</div>
 
-<!-- Buy Bullets Modal -->
-<div class="modal fade" id="bulletsModal" tabindex="-1" role="dialog" aria-labelledby="bulletsModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="bulletsModalLabel">Buy Bullets</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="text-warning" style="size: 12px">***This is a cryptocurrency pool, each entry (or bullet) is $110.
-          After you submit the form you will be redirected to a
-          checkout page, where you can select multipe coins to checkout with.***</p>
-        <div class="d-flex justify-content-center mb-4">
-          <img class="crypto-logo-sm" src="/images/bitcoinLogo.png" alt="bitcoinLogo">
-          <img class="crypto-logo-sm" src="/images/ethereumLogo.png" alt="ethereumLogo">
-          <img class="crypto-logo-sm" src="/images/litecoinLogo.png" alt="litecoinLogo">
-          <img class="crypto-logo-sm" src="/images/rippleLogo.png" alt="rippleLogo">
-          <img class="crypto-logo-sm" src="/images/stellarLumensLogo.png" alt="stellarLumensLogo">
+
+  <!-- Rules Modal -->
+  <div class="modal fade" id="rulesModal" tabindex="-1" role="dialog" aria-labelledby="rulesModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rulesModalLabel">Rules</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <form class="mt-3 mb-3" method="POST" action="/bullets/buyBullets">
-          <div class="form-group">
-            <label>How many bullets do you want?</label>
-            <select class="custom-select" name="bulletCount">
-              <% for(let i = 1; i <= 20; i++){ %>
-              <option value="<%= i %>"><%= i %></option>
-              <% } %>
-            </select>
-
-          </div>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
+        <div class="modal-body">
+          <ol>
+            <li>Participation in the last longer is $60 per entry.</li>
+            <li>The payout percentages are as follows - 90% to the winner and 10% to 2nd place.</li>
+            <li>Pick the outright WINNER (no point spreads) for one NFL game each week.</li>
+            <li>You must make a selection each week.</li>
+            <li>A team may only be selected once during the regular season (for example, if you pick the Chiefs in week
+              1, you may not select the Chiefs again for the remainder of the regular season). Slates are wiped clean
+              for the playoffs. If the pool continues into the playoffs, you can use each team one more time.</li>
+            <li>You continue in the pool until a loss (or tie) is suffered, then you're out. YES, TIES ARE LOSSES!</li>
+            <li>PICKS MUST BE SUBMITTED BY 7PM ET THURSDAYS (This is REGARDLESS of whether you are picking the Thursday
+              game or not). There is a Thursday night game just about every week this season. Any pick not submitted by
+              the deadline will be considered a loss and the contestant will be eliminated from the pool. It is possible
+              (and recommended) to submit picks for future weeks. Visit the site early in the week, or the
+              previous week, and make your pick. Then come back later and change it if necessary.</li>
+            <li>At about Week 15 or Week 16, the NFL stops having Thursday games. The actual week changes from season to
+              season. At that time the pick deadline will change to Friday evening at 11:59pm ET for the
+              rest of the season, and during the Playoffs.</li>
+            <li>You must double-check that your picks have been recorded on the website properly AFTER you have
+              submitted your pickss from your cell phone, tablet or computer.</li>
+            <li>Your official picks are the picks displayed in the table with your screen name next to them.</li>
+            <li>The game will continue until one contestant remains. However, via mutual consent, the pool may end at
+              any time, with the prize split among the remaining participants.</li>
+            <li>If all remaining contestants are eliminated in the same week, the contest is over, and the contestants
+              that were eliminated in that week are ALL declared winners and will split the prize. However, the contest
+              could be continued by unanimous consent of the 'winners' and NFL Last Longer administration.</li>
+            <li>If the REGULAR season ends with no outright winner, AND there has been no previous split, the pot will
+              be cut in half. 50% will be evenly distributed among the remaining players, and the other 50% will
+              become the new, winner-take-all, pot that will be played for in the playoffs.</li>
+            <li>If the contest continues into the playoffs, and advances to the Superbowl, and a player no longer has
+              any valid picks left to pick, because he has previously used both of the teams that are playing in the
+              Superbowl, that player is considered to have finished better than a player who lost in the previous round,
+              but worse than a player who picks the losing team in the Superbowl.</li>
+            <li>There might arise situations that are not spelled out specifically in these rules. In those cases, I
+              will make my decisions as fairly as possible, taking into account the general principles of the pool, as
+              well as the specific details of each case. My decisions are final.</li>
+            <li>All prizes will be sent out upon completion of the pool, winners are paid in CRYPTOCURRENCY. Please
+              allow 2-4 weeks for delivery.</li>
+          </ol>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Update User Modal -->
-<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModal"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateUserModal">Update User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne">
-                  Update Your Email
-                </button>
-              </h5>
-            </div>
-
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                <form class="mt-3 mb-3" method="POST" action="/users/updateUserEmail">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
-                  </div>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                  aria-expanded="false" aria-controls="collapseTwo">
-                  Update Your Password
-                </button>
-              </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body">
-                <form class="mt-3 mb-3" method="POST" action="/users/updateUserPassword">
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control"
-                      placeholder="Create Password" value="<%= typeof password != 'undefined' ? password : '' %>" />
-                  </div>
-                  <div class="form-group">
-                    <label for="password2">Confirm Password</label>
-                    <input type="password" id="password2" name="password2" class="form-control"
-                      placeholder="Confirm Password" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
-                  </div>
-                  <button type="submit" class="btn btn-primary">Update Password</button>
-                </form>
-              </div>
-            </div>
+  <!-- Make Your Picks Modal -->
+  <div class="modal fade" id="weekly-picks-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Make Your Picks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="accordion">
+            <!--% for(let i = 1; i <= 18; i++){ %>-->
+            <% weeks.forEach((i, index) => { %>
 
             <div class="card">
-              <div class="card-header" id="headingThree">
+              <div class="card-header" id="heading-<%= i %>">
                 <h5 class="mb-0">
-                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="false" aria-controls="collapseThree">
-                    Delete Your Account
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-<%= i %>"
+                    aria-expanded="true" aria-controls="collapse-<%= i %>">
+                    Week <%= i %>
                   </button>
                 </h5>
               </div>
-              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+
+              <div id="collapse-<%= i %>" class="collapse" aria-labelledby="heading-<%= i %>" data-parent="#accordion">
                 <div class="card-body">
-                  <p class="text-warning" style="size: 12px">***Please type DELETE in all caps in the below form field
-                    to delete your account. Once you delete your account you will not be able to get it back.***</p>
-                  <form class="mt-3 mb-3" method="POST" action="/users/deleteUser">
+                  <p class="text-warning">***Please notice you must make all your picks for all of
+                    your entries at the same time. If you want to update a certain bullet, please make sure to also replace your 
+                    picks for your other entries as they will be changed upon each form submission. <strong style="font-size: 16px;">
+                    Always check the table after updating to make sure. </strong>***</p>
+                  <form class="mt-3 mb-3" method="POST" action="/users/makePicks/<%= i %>">
+                    <% playingBullets.forEach((bullet) => { %>
                     <div class="form-group">
-                      <label for="deleteUser">Delete Account</label>
-                      <input type="text" id="deleteUser" name="deleteUser" class="form-control" placeholder="DELETE" />
+                      <label for="<%= `${user.name}-${bullet}` %>">
+                        Make your pick for entry <%= `${bullet + 1}` %>
+                      </label>
+                      <select class="form-control <%= `${user.name}-${bullet}` %>"
+                        name="<%= `${user.name}-${bullet}` %>">
+                        <% teamsArr.forEach(team => { %>
+                        <option><%= team %></option>
+                        <% }) %>
+                      </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Password</button>
+                    <% }); %>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                   </form>
                 </div>
               </div>
+
             </div>
+              <% }); %>
+
+            <script src="/js/script.js"></script>
+            <script src="/js/chat.js"></script>
+
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- Make Your Picks Modal -->
-<div class="modal fade" id="weekly-picks-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Make Your Picks</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="accordion">
-          <!--% for(let i = 1; i <= 18; i++){ %>-->
-          <% weeks.forEach((i, index) => { %>
-
-          <div class="card">
-            <div class="card-header" id="heading-<%= i %>">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-<%= i %>"
-                  aria-expanded="true" aria-controls="collapse-<%= i %>">
-                  Week <%= i %>
-                </button>
-              </h5>
-            </div>
-
-            <div id="collapse-<%= i %>" class="collapse" aria-labelledby="heading-<%= i %>" data-parent="#accordion">
-              <div class="card-body">
-                <p class="text-warning" style="size: 12px">***Please notice you must make all your picks for all of your
-                  bullets
-                  at the same time. If you want to update a certain bullet, please make sure to also replace your picks
-                  for your
-                  other bullets as they will be changed upon each form submission. <strong style="font-size: 16px;">
-                    Always
-                    check the table after updating to make sure. </strong>***</p>
-                <form class="mt-3 mb-3" method="POST" action="/users/makePicks/<%= i %>">
-                  <% playingBullets.forEach((bullet) => { %>
-                  <div class="form-group">
-                    <label for="<%= `${user.name}-${bullet}` %>">
-                      Make your pick for bullet <%= `${bullet + 1}` %>
-                    </label>
-                    <select class="form-control" name="<%= `${user.name}-${bullet}` %>"
-                      id="<%= `${user.name}-${bullet}` %>">
-                      <% teamsArr.forEach(team => { %>
-                      <option><%= team %></option>
-                      <% }) %>
-                    </select>
-                  </div>
-                  <% }); %>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
-                </form>
-              </div>
-            </div>
-
-            <% }); %>
-          </div>
-
-          <script src="/js/script.js"></script>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- Make Your Picks Modal -->
+  </div><!-- Make Your Picks Modal -->
 </div> <!-- container -->
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script>
+  $(document).ready(function () {
+    $('#sidebarCollapse, #sidebarCollapse2').on('click', function () {
+      $('#sidebar').toggleClass('active');
+      $('html').css('overflow', $('#sidebar').hasClass('active') ? 'hidden' : 'auto');
+    });
+  });
+</script>

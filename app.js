@@ -8,6 +8,7 @@ const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 const flash = require('connect-flash');
@@ -20,9 +21,13 @@ const dotenv = require('dotenv');
 
 const port = process.env.PORT || 3000;
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 dotenv.config();
 
 const indexRouter = require('./server/index');
+const { reject } = require('lodash');
 require('./server/config/passport')(passport);
 
 // DB Config
@@ -31,7 +36,6 @@ const db = process.env.MongoURI;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true })
   .then(() => {
     console.log(chalk.yellowBright('MONGODB Connected'));
-    // getSchedule();
   })
   .catch(err => console.log(err));
 
@@ -103,7 +107,37 @@ app.use((err, req, res, next) => {
   res.render('error', { err });
 });
 
-app.listen(port, () => {
+io.on('connection', async (socket) => {
+  const client = new MongoClient(process.env.MongoURI);
+  const dbName = 'liveChat';
+  await client.connect();
+  const dbX = client.db(dbName);
+  const messagesCollection = await dbX.collection('messages');
+
+  // When user sends new message
+  socket.on('new-message', (message) => {
+    try {
+      messagesCollection.insertOne(message);
+      console.log('New mssage received', message);
+    } catch (error) {
+      console.log(error);
+    }
+    // Send message to users
+    socket.broadcast.emit('new-messages', [message]);
+  });
+
+  socket.on('join-room', async (id) => {
+    // Send existintg messages to user
+    try {
+      const messages = await messagesCollection.find({}).sort({ _id: -1 }).limit(25).toArray();
+      io.to(socket.id).emit('new-messages', messages.reverse());
+    } catch (err) {
+      console.log('Error joining room', err)
+    }
+  });
+});
+
+server.listen(port, () => {
   console.log(`Running on port ${chalk.yellowBright(port)}`);
 });
 

@@ -59,24 +59,27 @@ function getSchedule() {
   return new Promise((resolve, reject) => {
     axios
       .all([
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/1?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/2?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/3?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/4?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/5?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/6?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/7?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/8?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/9?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/10?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/11?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/12?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/13?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/14?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/15?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/16?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/17?key=${process.env.API_KEY}`),
-        axios.get(`https://api.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/18?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/1?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/2?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/3?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/4?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/5?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/6?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/7?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/8?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/9?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/10?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/11?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/12?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/13?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/14?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/15?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/16?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/17?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/18?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/19?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/20?key=${process.env.API_KEY}`),
+        axios.get(`https://fly.sportsdata.io/api/nfl/odds/json/ScoresByWeek/${process.env.SEASON}/21?key=${process.env.API_KEY}`),
       ])
       .then((responseArr) => {
         for (let i = 0; i < 18; i++) {
@@ -103,7 +106,9 @@ function getSchedule() {
           });
         }
 
+        console.log(chalk.greenBright('WINNERS OBJECT'));
         console.log(util.inspect(winners, { showHidden: false, depth: null }));
+        console.log(chalk.redBright('LOSERS OBJECT'));
         console.log(util.inspect(losers, { showHidden: false, depth: null }));
 
         async function seedDbWinners() {
@@ -122,8 +127,8 @@ function getSchedule() {
           client.close();
         }
 
-        // seedDbWinners();
-        // seedDbLosers();
+        seedDbWinners();
+        seedDbLosers();
 
         resolve({ winners, losers });
       })

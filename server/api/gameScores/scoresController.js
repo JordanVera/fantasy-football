@@ -8,12 +8,13 @@ function scoresRepo() {
   function loadWinners(winners) {
     return new Promise(async (resolve, reject) => {
       const client = new MongoClient(process.env.MongoURI);
-
       try {
         await client.connect();
         const db = client.db(dbName);
+        const winnersCollection = await db.collection('winners');
 
-        winnersArr = await db.collection('winners').insertOne(winners);
+        winnersCollection.drop();
+        winnersArr = winnersCollection.insertOne(winners);
         resolve(winnersArr);
         client.close();
       } catch (error) {
@@ -29,9 +30,11 @@ function scoresRepo() {
       try {
         await client.connect();
         const db = client.db(dbName);
+        const losersCollection = await db.collection('losers');
 
-        winnersArr = await db.collection('losers').insertOne(losers);
-        resolve(winnersArr);
+        losersCollection.drop();
+        losersArr = await db.collection('losers').insertOne(losers);
+        resolve(losersArr);
         client.close();
       } catch (error) {
         reject(error);

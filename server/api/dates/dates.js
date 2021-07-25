@@ -29,7 +29,7 @@ const dates = [
 const getAvailableWeeks = (all) => {
   const startingWeek = getStartingWeek();
 
-  const weeks = new Array(18)
+  const weeks = new Array(22)
     .fill(0)
     .map((_, index) => index + 1)
     .filter((week) => week >= startingWeek);

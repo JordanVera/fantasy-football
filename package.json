@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node --experimental-modules app.js",
     "dev": "nodemon --experimental-modules app.js",
-    "scores": "nodemon ./server/api/gameScores/getScores.js",
+    "scores": "node ./server/api/gameScores/getScores.js",
     "lint": "eslint ."
   },
   "engines": {
