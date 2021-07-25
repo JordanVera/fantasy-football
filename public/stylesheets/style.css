@@ -672,6 +672,10 @@ transform: translateY(5px);
     margin-top: 52px;
   }
 
+  .masthead h1 {
+    font-size: 24px;
+  }
+
   .crypto-logo, .crypto-logo-sm {
     margin-left: 10px;
     margin-right: 10px;
