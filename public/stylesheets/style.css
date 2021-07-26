@@ -703,14 +703,17 @@ transform: translateY(5px);
   }
 
   #sidebar {
-    margin-top: -50px;
-    padding-top: 50px;
+    padding-top: 64px;
     margin-left: -250px;
     background-color: var(--chat-color-background);
   }
   
   #sidebar.active{
     margin-left: 0;
+  }
+
+  .chat {
+    height: 120%;
   }
 
   .site-footer {
@@ -723,7 +726,7 @@ transform: translateY(5px);
 }
 
 .chat {
-  height: 100vh;
+  height: 114%;
   margin-top: -104px;
   padding-top: 104px;
   padding-bottom: 1rem;
