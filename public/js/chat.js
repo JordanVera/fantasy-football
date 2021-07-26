@@ -1,7 +1,8 @@
-const socket = window.io('/');
 
 const Chat = {
   init(user) {
+    const socket = window.io.connect();
+    this.socket = socket;
     this.user = user;
 
     // Join room
@@ -25,14 +26,36 @@ const Chat = {
     this.events();
   },
 
-  convertFormMessageToChatMessage(messageText, user, color = '#fd7e14') {
+  getColor (username) {
+    const colorList = [
+      'rgb(255, 127, 80)',
+      'rgb(0, 255, 127)',
+      'rgb(255, 69, 0)',
+      'rgb(30, 144, 255)',
+      'rgb(205, 35, 233)',
+      'rgb(249, 255, 10)',
+    ];
+
+    if (!this.usernamesColors) {
+      this.usernamesColors = {};
+    }
+
+    if (!this.usernamesColors[username]) {
+      const index = Object.keys(this.usernamesColors).length % colorList.length;
+      this.usernamesColors[username] = colorList[index];
+    }
+
+    return this.usernamesColors[username];
+  },
+
+  convertFormMessageToChatMessage(messageText, user) {
     const messageContainer = document.createElement('div');
     messageContainer.classList.add('message-container');
 
     const messageUser = document.createElement('span');
     messageUser.classList.add('message-user');
     messageUser.textContent = user;
-    messageUser.style.color = color;
+    messageUser.style.color = this.getColor(user);
 
     const messageP = document.createElement('span');
     messageP.classList.add('message-text');
@@ -45,6 +68,7 @@ const Chat = {
   },
 
   events() {
+    const { socket } = this;
     document
       .querySelector('.actions-sendMessage')
       .addEventListener('click', () => {

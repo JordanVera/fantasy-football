@@ -42,7 +42,7 @@ body {
 
 .nav-link {
   padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 12px;
 }
 
 .line{
@@ -64,14 +64,14 @@ body {
   transition: all 0.3s;
   height: 100vh;
   margin-top: -104px;
-  margin-left: -250px;
+  margin-left: -0;
   padding-top: 104px;
   position: sticky;
   top: 0;
 }
 
 #sidebar.active{
-	margin-left: 0;
+	margin-left: -250px;
 }
 
 .buttonHeader {
