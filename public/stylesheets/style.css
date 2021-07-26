@@ -64,14 +64,14 @@ body {
   transition: all 0.3s;
   height: 100vh;
   margin-top: -104px;
-  margin-left: -0;
+  margin-left: -250px;
   padding-top: 104px;
   position: sticky;
   top: 0;
 }
 
 #sidebar.active{
-	margin-left: -250px;
+	margin-left: 0;
 }
 
 .buttonHeader {
