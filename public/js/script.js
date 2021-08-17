@@ -53,7 +53,7 @@ const Program = {
       removedGroups,
     });
 
-    const postSeasonWeeks = 22 - 19;
+    const postSeasonWeeks = 22 - 18; // 18 + 4 == 22
 
     form.querySelectorAll('.form-group select').forEach((group, rowIndex) => {
       const selection = group.value;
@@ -64,7 +64,7 @@ const Program = {
       console.log('row', row);
 
       // Repeated selection
-      const repeatedSelection = weekIndex + postSeasonWeeks < row.length
+      const repeatedSelection = weekInddex + postSeasonWeeks < row.length
         ? row.slice(0, -postSeasonWeeks).includes(selection)
         : row.slice(-postSeasonWeeks).includes(selection);
 
