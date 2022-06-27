@@ -18,16 +18,13 @@ dotenv.config();
 const updateUserBullets = async (userId, quantity) => {
   const query = { customerId: userId };
   const mongooseUser = await User.findOne(query);
-  const update = { bullets: mongooseUser.bullets += parseInt(quantity, 10) };
+  const update = { bullets: (mongooseUser.bullets += parseInt(quantity, 10)) };
 
   await User.findOneAndUpdate(query, update, { new: true });
 };
 
 function bulletsRepo() {
-  const client = new CoinqvestClient(
-    process.env.PUBLIC,
-    process.env.PRIVATE
-  );
+  const client = new CoinqvestClient(process.env.PUBLIC, process.env.PRIVATE);
 
   function testAuth() {
     client.get('/auth-test', null, (response) => {
@@ -40,18 +37,16 @@ function bulletsRepo() {
   // when a user signs up it creates a customer in COIMQVEST api
   function createCustomer(customerObj) {
     return new Promise((resolve, reject) => {
-      client.post('/customer',
-        customerObj,
-        (response) => {
-          console.log(response.status);
-          console.log(response.data);
-          if (response.status !== 200) {
-            console.log('Could not create customer. Inspect above log entry.');
-            return reject();
-          }
-          const { customerId } = response.data;
-          resolve(customerId);
-        });
+      client.post('/customer', customerObj, (response) => {
+        console.log(response.status);
+        console.log(response.data);
+        if (response.status !== 200) {
+          console.log('Could not create customer. Inspect above log entry.');
+          return reject();
+        }
+        const { customerId } = response.data;
+        resolve(customerId);
+      });
     });
   }
 
@@ -60,41 +55,42 @@ function bulletsRepo() {
       charge: {
         customerId: req.user.customerId,
         currency: 'USD',
-        lineItems: [{
-          description: 'NFL Last Longer Entry',
-          netAmount: process.env.BUYIN,
-          quantity: req.body.bulletCount
-        }],
+        lineItems: [
+          {
+            description: 'NFL Last Longer Entry',
+            netAmount: process.env.BUYIN,
+            quantity: req.body.bulletCount,
+          },
+        ],
       },
       webhook: `${process.env.WEBHOOK}/bullets/hook`,
       links: {
-        returnUrl: `${process.env.WEBHOOK}/dashboard`
+        returnUrl: `https://fantasy--football.herokuapp.com/dashboard`,
+        cancelUrl: `https://fantasy--football.herokuapp.com/dashboard`,
       },
       pageSettings: {
         displaySellerInfo: false,
-        shopName: 'NFL Last Longer'
+        shopName: 'NFL Last Longer',
       },
-      settlementCurrency: 'USD'
+      settlementCurrency: 'USD',
     };
 
-    client.post('/checkout/hosted',
-      chargeObj,
-      (response) => {
-        console.log(response.status);
-        console.log(response.data);
+    client.post('/checkout/hosted', chargeObj, (response) => {
+      console.log(response.status);
+      console.log(response.data);
 
-        if (response.status !== 200) {
-          console.log('Could not create checkout.');
-          return;
-        }
+      if (response.status !== 200) {
+        console.log('Could not create checkout.');
+        return;
+      }
 
-        // the checkout was created
-        // response.data now contains an object as specified in the success response here: https://www.coinqvest.com/en/api-docs#post-checkout
-        const { checkoutId } = response.data; // store this persistently in your database
-        const { url } = response.data; // redirect your customer to this URL to complete the payment
+      // the checkout was created
+      // response.data now contains an object as specified in the success response here: https://www.coinqvest.com/en/api-docs#post-checkout
+      const { checkoutId } = response.data; // store this persistently in your database
+      const { url } = response.data; // redirect your customer to this URL to complete the payment
 
-        res.redirect(url);
-      });
+      res.redirect(url);
+    });
   }
 
   function hook(req, res, next) {
@@ -111,7 +107,8 @@ function bulletsRepo() {
         break;
       case 'UNDERPAID_ACCEPTED':
         const customerIdX = req.body.data.checkout.payload.charge.customerId;
-        const quantityX = req.body.data.checkout.payload.charge.lineItems[0].quantity;
+        const quantityX =
+          req.body.data.checkout.payload.charge.lineItems[0].quantity;
 
         updateUserBullets(customerIdX, quantityX);
         break;
